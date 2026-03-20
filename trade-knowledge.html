@@ -1,0 +1,2169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>外贸专业知识百宝箱 · 全折叠版</title>
+    <!-- 现代字体 Inter & 优雅商务色调 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <!-- 引入 Mermaid 用于专业流程图 -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: false, // 改为手动控制，避免自动渲染出错
+            theme: 'neutral',
+            themeVariables: {
+                'background': 'rgba(255,255,255,0)',
+                'primaryColor': '#1e3b5c',
+                'primaryTextColor': '#0a2647',
+                'primaryBorderColor': '#b0c4de',
+                'lineColor': '#2b5797',
+                'secondaryColor': '#e1ecf9',
+                'tertiaryColor': '#fff'
+            },
+            flowchart: { 
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            securityLevel: 'loose' // 降低安全级别，避免某些渲染问题
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f5f7fc 0%, #e6ecf5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            padding: 1.5rem;
+            color: #1e2f4d;
+        }
+
+        .master-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 3rem;
+            box-shadow: 0 35px 65px -25px rgba(20, 45, 80, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            width: 100%;
+            max-width: 1400px;
+            padding: 2.5rem 2.5rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 550;
+            letter-spacing: -0.02em;
+            color: #0f2b4f;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.3rem;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, #1e3b5c, #143155);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 0.4rem 1.6rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 8px 18px -8px #0f2b4f;
+        }
+
+        .sub {
+            font-size: 1.1rem;
+            color: #3e5f7a;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            border-left: 5px solid #2b5797;
+            padding-left: 1.3rem;
+            background: rgba(220, 235, 250, 0.3);
+            border-radius: 0 20px 20px 0;
+        }
+
+        /* 手风琴容器 */
+        .query-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* 卡片样式 */
+        .query-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(6px);
+            border-radius: 2rem;
+            padding: 0.8rem 1.8rem 0.8rem 1.8rem;
+            border: 1px solid rgba(200, 220, 240, 0.8);
+            box-shadow: 0 4px 10px -8px #1e3b5c;
+            transition: all 0.2s ease;
+        }
+
+        /* 卡片标题栏（可点击） */
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 0.5rem 0;
+        }
+
+        .card-header h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1e3b5c;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .accordion-icon {
+            font-size: 1.8rem;
+            color: #1e3b5c;
+            transition: transform 0.2s;
+            line-height: 1;
+        }
+
+        /* 卡片内容区域（默认隐藏） */
+        .card-content {
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .query-card.expanded .card-content {
+            display: block;
+        }
+
+        .query-card:not(.expanded) .card-content {
+            display: none;
+        }
+
+        /* 内部组件样式 */
+        .select-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .select-box select {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 1px solid #c0d4e5;
+            border-radius: 3rem;
+            font-size: 1rem;
+            background: white;
+            outline: none;
+            transition: 0.15s;
+            box-shadow: 0 4px 8px -6px #a0b8c8;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231e3b5c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 1.5rem center;
+            background-size: 1rem;
+        }
+
+        .select-box select:focus {
+            border-color: #2b5797;
+            box-shadow: 0 8px 16px -12px #1e3b5c;
+        }
+
+        .select-box button {
+            background: #1e3b5c;
+            border: none;
+            color: white;
+            padding: 0 2rem;
+            border-radius: 3rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 16px -12px #0f2b4f;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+        }
+
+        .select-box button:hover {
+            background: #2b5797;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -12px #1e3b5c;
+        }
+
+        .result-box {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 1.5rem;
+            padding: 1.2rem 1.5rem;
+            min-height: 100px;
+            border: 1px solid #c5d8e8;
+            color: #1e2f4d;
+            line-height: 1.6;
+            font-size: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .result-box p {
+            margin-bottom: 0.5rem;
+        }
+
+        .result-box .not-found {
+            color: #8a9db0;
+            font-style: italic;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #1e3b5c;
+        }
+
+        .time-info {
+            background: rgba(255, 245, 220, 0.5);
+            border-left: 4px solid #e67e22;
+            padding: 0.5rem 0.8rem;
+            border-radius: 1rem;
+            margin: 0.8rem 0;
+        }
+
+        /* 示意图样式 - 实物图标风格 */
+        .diagram-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 1rem;
+            border: 2px solid #1e3b5c;
+            box-shadow: 0 4px 12px rgba(0,30,60,0.1);
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .diagram-box .diagram-title {
+            font-weight: 700;
+            color: #1e3b5c;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px dashed #2b5797;
+            padding-bottom: 0.5rem;
+            background: #e8f0fe;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .diagram-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            white-space: pre;
+            text-align: left;
+            background: #f9fcff;
+            padding: 1.2rem;
+            border-radius: 0.8rem;
+            border: 1px solid #b0c8e0;
+            overflow-x: auto;
+        }
+
+        .diagram-content .ship {
+            color: #b22222;
+            font-weight: bold;
+        }
+
+        .diagram-content .arrow {
+            color: #2b5797;
+            font-weight: bold;
+        }
+
+        .diagram-content .factory {
+            color: #8b4513;
+        }
+
+        .diagram-content .warehouse {
+            color: #2e8b57;
+        }
+
+        /* 计算公式样式 */
+        .formula-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f0f7ff;
+            border-radius: 1rem;
+            border: 2px solid #2b5797;
+            box-shadow: 0 4px 8px rgba(0,60,120,0.1);
+        }
+
+        .formula-box .formula-title {
+            font-weight: 700;
+            color: #1e3b5c;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .formula-box .formula {
+            background: white;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            border-left: 4px solid #2b5797;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .formula-box .example {
+            background: #e6f3ff;
+            padding: 0.8rem;
+            border-radius: 0.6rem;
+            font-size: 0.95rem;
+            border: 1px dashed #2b5797;
+            margin-top: 0.5rem;
+        }
+
+        .formula-box .note {
+            color: #5f7e9c;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* 表格样式 - 专业单据风格 */
+        .template-table {
+            font-family: '宋体', SimSun, 'Arial', sans-serif;
+            font-size: 11pt;
+            border-collapse: collapse;
+            width: auto;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #000;
+            table-layout: fixed;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .template-table th {
+            background: #e0e7f0;
+            font-weight: 600;
+            border: 1px solid #000;
+            padding: 10px 14px;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 11pt;
+        }
+        .template-table td {
+            border: 1px solid #000;
+            padding: 8px 12px;
+            white-space: nowrap;
+        }
+        .template-table td.text-left {
+            text-align: left;
+        }
+        .template-table td.text-center {
+            text-align: center;
+        }
+        .template-table td.text-right {
+            text-align: right;
+        }
+        .template-title {
+            font-family: '宋体', SimSun, 'Arial', sans-serif;
+            font-size: 16pt;
+            font-weight: 700;
+            text-align: center;
+            margin: 15px 0 10px;
+            letter-spacing: 1px;
+        }
+        .template-extra {
+            font-family: '宋体', SimSun, 'Arial', sans-serif;
+            font-size: 10.5pt;
+            margin-top: 12px;
+            line-height: 1.7;
+        }
+
+        /* 按钮组 */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.2rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: #2b5797;
+            border: none;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 3rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 16px -12px #0f2b4f;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: #1e3b5c;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px -12px #1e3b5c;
+        }
+
+        .action-btn.copy-btn {
+            background: #4a6a8a;
+        }
+
+        .action-btn.csv-btn {
+            background: #2b5797;
+        }
+
+        .action-btn.excel-btn {
+            background: #1e6f5c;
+        }
+
+        /* 流程图专用样式 */
+        .mermaid-wrapper {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 2.5rem;
+            padding: 2rem 1.5rem;
+            border: 1px solid rgba(200, 220, 240, 0.8);
+            box-shadow: 0 20px 30px -20px #1e5f78;
+            overflow-x: auto;
+            margin-bottom: 0;
+        }
+
+        .mermaid-wrapper svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .footnote {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #5f7e9c;
+            font-size: 0.9rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid rgba(100, 130, 170, 0.2);
+            margin: 2rem 0 1rem;
+        }
+
+        /* 移动端适应 */
+        @media (max-width: 900px) {
+            .button-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="master-card">
+        <h1>
+            📦 外贸专业知识百宝箱
+            <span>全流程明细·实时时区·邮件模板·谈判技巧·价格计算</span>
+        </h1>
+        <div class="sub">点击标题展开模块，快速查询术语、渠道、国家习俗、流程操作、单据模板、邮件模板及谈判技巧</div>
+
+        <!-- 手风琴折叠区域（包含所有模块） -->
+        <div class="query-accordion" id="accordionContainer">
+            <!-- 外贸专业术语（含示意图和计算公式） -->
+            <div class="query-card" id="card-term">
+                <div class="card-header" data-target="card-term">
+                    <h2>🔤 外贸专业术语（含示意图+计算公式）</h2>
+                    <span class="accordion-icon">▼</span>
+                </div>
+                <div class="card-content">
+                    <div class="select-box">
+                        <select id="termSelect">
+                            <option value="" disabled selected>— 请选择一个术语 —</option>
+                        </select>
+                        <button id="termSearchBtn"><span>查询</span> <span>→</span></button>
+                    </div>
+                    <div class="result-box" id="termResult">
+                        <p class="not-found">选择术语后点击查询</p>
+                    </div>
+                    <!-- 示意图容器 -->
+                    <div id="termDiagram" class="diagram-box" style="display: none;"></div>
+                    <!-- 计算公式容器 -->
+                    <div id="termFormula" class="formula-box" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- 客户开发渠道 -->
+            <div class="query-card" id="card-channel">
+                <div class="card-header" data-target="card-channel">
+                    <h2>🤝 客户开发渠道</h2>
+                    <span class="accordion-icon">▶</span>
+                </div>
+                <div class="card-content" style="display: none;">
+                    <div class="select-box">
+                        <select id="channelSelect">
+                            <option value="" disabled selected>— 请选择一个渠道 —</option>
+                        </select>
+                        <button id="channelSearchBtn"><span>查询</span> <span>→</span></button>
+                    </div>
+                    <div class="result-box" id="channelResult">
+                        <p class="not-found">选择渠道后点击查询</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 客户关系管理 -->
+            <div class="query-card" id="card-country">
+                <div class="card-header" data-target="card-country">
+                    <h2>🌍 客户关系管理</h2>
+                    <span class="accordion-icon">▶</span>
+                </div>
+                <div class="card-content" style="display: none;">
+                    <div class="select-box">
+                        <select id="countrySelect">
+                            <option value="" disabled selected>— 请选择国家/地区 —</option>
+                        </select>
+                        <button id="countrySearchBtn"><span>查询</span> <span>→</span></button>
+                    </div>
+                    <div class="result-box" id="countryResult">
+                        <p class="not-found">选择国家后点击查询当地习俗与当前时间</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 客户已读不回邮件模板（带复制按钮） -->
+            <div class="query-card" id="card-unreply">
+                <div class="card-header" data-target="card-unreply">
+                    <h2>📩 客户已读不回（邮件模板）</h2>
+                    <span class="accordion-icon">▶</span>
+                </div>
+                <div class="card-content" style="display: none;">
+                    <div class="select-box">
+                        <select id="unreplySelect">
+                            <option value="" disabled selected>— 请选择一个模板 —</option>
+                        </select>
+                        <button id="unreplySearchBtn"><span>查询</span> <span>→</span></button>
+                    </div>
+                    <div class="result-box" id="unreplyResult">
+                        <p class="not-found">选择模板后点击查询</p>
+                    </div>
+                    <div class="button-group" style="justify-content: flex-start;">
+                        <button class="action-btn copy-btn" id="copyUnreplyBtn" style="display: none;">📋 复制模板</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 价格谈判技巧（带复制按钮） -->
+            <div class="query-card" id="card-negotiate">
+                <div class="card-header" data-target="card-negotiate">
+                    <h2>💰 价格谈判技巧</h2>
+                    <span class="accordion-icon">▶</span>
+                </div>
+                <div class="card-content" style="display: none;">
+                    <div class="select-box">
+                        <select id="negotiateSelect">
+                            <option value="" disabled selected>— 请选择一种话术 —</option>
+                        </select>
+                        <button id="negotiateSearchBtn"><span>查询</span> <span>→</span></button>
+                    </div>
+                    <div class="result-box" id="negotiateResult">
+                        <p class="not-found">选择话术后点击查询</p>
+                    </div>
+                    <div class="button-group" style="justify-content: flex-start;">
+                        <button class="action-btn copy-btn" id="copyNegotiateBtn" style="display: none;">📋 复制话术</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 外贸流程明细操作 -->
+            <div class="query-card" id="card-process">
+                <div class="card-header" data-target="card-process">
+                    <h2>📋 外贸流程明细</h2>
+                    <span class="accordion-icon">▶</span>
+                </div>
+                <div class="card-content" style="display: none;">
+                    <div class="select-box">
+                        <select id="processSelect">
+                            <option value="" disabled selected>— 请选择一个环节 —</option>
+                        </select>
+                        <button id="processSearchBtn"><span>查询</span> <span>→</span></button>
+                    </div>
+                    <div class="result-box" id="processResult">
+                        <p class="not-found">选择环节后点击查询详细操作</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 外贸单据模板 -->
+            <div class="query-card" id="card-doc">
+                <div class="card-header" data-target="card-doc">
+                    <h2>📄 外贸单据模板</h2>
+                    <span class="accordion-icon">▶</span>
+                </div>
+                <div class="card-content" style="display: none;">
+                    <div class="select-box">
+                        <select id="docSelect">
+                            <option value="" disabled selected>— 请选择一个单据类型 —</option>
+                        </select>
+                        <button id="docSearchBtn"><span>查询</span> <span>→</span></button>
+                    </div>
+                    <div class="result-box" id="docResult" style="max-height: none; background: white; overflow-x: auto; text-align: center;">
+                        <p class="not-found">选择单据后点击查询查看表格模板</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="action-btn copy-btn" id="copyTableBtn" style="display: none;">📋 复制表格</button>
+                        <button class="action-btn csv-btn" id="exportCsvBtn" style="display: none;">📥 下载CSV</button>
+                        <button class="action-btn excel-btn" id="exportExcelBtn" style="display: none;">📊 下载Excel（固定列宽）</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 外贸全套流程图（优化后的版本，修复报错问题） -->
+            <div class="query-card" id="card-flow">
+                <div class="card-header" data-target="card-flow">
+                    <h2>📋 外贸全套流程图</h2>
+                    <span class="accordion-icon">▶</span>
+                </div>
+                <div class="card-content" style="display: none;">
+                    <div class="mermaid-wrapper">
+                        <pre class="mermaid" style="display: none;">暂未加载</pre>
+                        <!-- 使用JavaScript动态渲染 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <div class="footnote">
+            💡 点击模块标题展开/收起；术语库按常用频率排序，配有实物示意图和价格计算公式；国家信息含实时时间；流程环节可查询具体操作指导；单据模板采用固定列宽；邮件模板与谈判技巧均带复制按钮
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // ---------- 外贸术语数据库 ----------
+            const termDatabase = {
+                'FOB': 'FOB (Free On Board) 装运港船上交货。卖方在指定装运港将货物交到买方指定的船上，即完成交货。风险在货物越过船舷时转移。适用于海运或内河运输。',
+                'CIF': 'CIF (Cost, Insurance and Freight) 成本加保险费加运费。卖方负责租船订舱、支付运费、购买保险，并承担货物越过船舷前的风险。适用于海运。',
+                'CFR': 'CFR (Cost and Freight) 成本加运费。卖方负责租船订舱、支付运费，但保险由买方负责，风险转移同FOB。',
+                'EXW': 'EXW (Ex Works) 工厂交货。卖方在自己的场所将货物交给买方，即完成交货，买方承担所有费用和风险，包括装货。',
+                'DDP': 'DDP (Delivered Duty Paid) 完税后交货。卖方负责将货物运至指定目的地，并办理进口清关，承担所有风险和费用，是卖方责任最大的术语。',
+                'FCA': 'FCA (Free Carrier) 货交承运人。卖方在指定地点将货物交给买方指定的承运人，即完成交货，风险随之转移。适用于任何运输方式。',
+                'CPT': 'CPT (Carriage Paid To) 运费付至。卖方将货物交给承运人，并支付运费至指定目的地，风险在交货时转移。',
+                'CIP': 'CIP (Carriage and Insurance Paid To) 运费和保险费付至。卖方除承担CPT的义务外，还需购买保险。',
+                'DPU': 'DPU (Delivered at Place Unloaded) 卸货地交货。卖方将货物运至指定目的地并卸货，交给买方处置即完成交货。',
+                'DAP': 'DAP (Delivered at Place) 目的地交货。卖方将货物运至指定目的地，交由买方处置即完成交货，无需卸货。',
+                'FAS': 'FAS (Free Alongside Ship) 船边交货。卖方在指定装运港将货物放在船边，即完成交货，风险从货物交到船边转移。',
+                'L/C': 'L/C (Letter of Credit) 信用证。银行根据买方请求，开给卖方的一种保证付款的书面凭证，是国际贸易主要支付方式。适用于大额交易或高风险国家。',
+                'T/T': 'T/T (Telegraphic Transfer) 电汇。买方通过银行将货款电汇给卖方，常用于定金或尾款支付，速度快但风险需自行把控。',
+                'D/P': 'D/P (Documents against Payment) 付款交单。卖方通过银行托收，买方付款后才能取得提货单据。',
+                'D/A': 'D/A (Documents against Acceptance) 承兑交单。买方承兑远期汇票后即可取得单据，风险较高。',
+                'CAD': 'CAD (Cash Against Documents) 凭单付现。买方在收到符合合同规定的单据后支付货款。',
+                'O/A': 'O/A (Open Account) 赊销。卖方发货后直接寄单，买方在约定时间付款，风险最高但可增强竞争力。',
+                'LC at sight': '即期信用证。受益人提交符合信用证要求的单据后，开证行立即付款。',
+                'Usance LC': '远期信用证。受益人提交单据后，开证行承诺在未来某个日期付款。',
+                'SWIFT': 'SWIFT (Society for Worldwide Interbank Financial Telecommunication) 环球银行金融电信协会，银行间跨境支付与通信标准。',
+                'B/L': 'B/L (Bill of Lading) 提单。货物收据、运输合同证明、物权凭证，是海运中最重要的单据。',
+                'MBL': 'MBL (Master Bill of Lading) 主提单，由船公司签发。',
+                'HBL': 'HBL (House Bill of Lading) 分提单，由货代签发。',
+                'AWB': 'AWB (Air Waybill) 空运提单。空运中的运输凭证，非物权凭证。',
+                'MAWB': 'MAWB (Master Air Waybill) 主空运单，由航空公司签发。',
+                'HAWB': 'HAWB (House Air Waybill) 分空运单，由货运代理签发。',
+                'SEA WAYBILL': '海运单，非物权凭证，主要用于近洋运输或关联公司之间。',
+                'FCL': 'FCL (Full Container Load) 整箱货。一个集装箱只装一个货主的货物。',
+                'LCL': 'LCL (Less than Container Load) 拼箱货。多个货主的货物拼在一个集装箱内。',
+                'ETA': 'ETA (Estimated Time of Arrival) 预计到港时间。',
+                'ETD': 'ETD (Estimated Time of Departure) 预计离港时间。',
+                'CY': 'CY (Container Yard) 集装箱堆场，整箱交接的场所。',
+                'CFS': 'CFS (Container Freight Station) 集装箱货运站，拼箱交接的场所。',
+                'TEU': 'TEU (Twenty-foot Equivalent Unit) 20英尺标准集装箱单位。',
+                'SOC': 'SOC (Shipper‘s Own Container) 货主自有箱。',
+                'COC': 'COC (Carrier’s Own Container) 承运人自有箱。',
+                'P/I': 'P/I (Proforma Invoice) 形式发票。卖方在交易前开具的预览发票，用于买方申请进口许可证或外汇。',
+                'C/O': 'C/O (Certificate of Origin) 原产地证书。证明货物原产地的文件，用于关税优惠或清关。',
+                'S/C': 'S/C (Sales Contract) 销售合同。买卖双方达成的正式贸易合同。',
+                'P/L': 'P/L (Packing List) 装箱单。列明货物包装细节的单据。',
+                'S/O': 'S/O (Shipping Order) 装货单。船公司发给托运人，通知货物已配妥船名、航次，可安排装船的凭证。',
+                'D/O': 'D/O (Delivery Order) 提货单。收货人凭正本提单到船公司换取的可向码头提货的单据。',
+                'B/E': 'B/E (Bill of Entry) 进口报关单。',
+                'SGS': 'SGS 检验证书。SGS（瑞士通用公证行）出具的检验、鉴定报告。',
+                'HS Code': 'HS Code (Harmonized System Code) 海关编码，用于商品分类和关税征收。',
+                'GSP': 'GSP (Generalized System of Preferences) 普惠制，发达国家对发展中国家出口制成品给予的关税优惠。',
+                'ICC-A': 'ICC(A) 协会货物条款A，承保范围最广的海洋运输保险，类似一切险。',
+                'ICC-B': 'ICC(B) 协会货物条款B，承保范围中等。',
+                'ICC-C': 'ICC(C) 协会货物条款C，承保范围最小，只保重大意外。',
+                'WPA': 'WPA (With Particular Average) 水渍险，承保单独海损。',
+                'FPA': 'FPA (Free from Particular Average) 平安险，不承保单独海损。',
+                'GA': 'GA (General Average) 共同海损。为挽救共同危险而作出的特殊牺牲或费用，由受益各方分摊。',
+                'PA': 'PA (Particular Average) 单独海损。',
+                'FWRD': 'FWRD (Fresh Water Rain Damage) 淡水雨淋险。',
+                'OEM': 'OEM (Original Equipment Manufacturer) 贴牌生产。供应商根据客户要求生产，使用客户品牌。',
+                'ODM': 'ODM (Original Design Manufacturer) 原始设计制造商。供应商自主设计并生产，供客户选择贴牌。',
+                'MOQ': 'MOQ (Minimum Order Quantity) 最小起订量。',
+                'Lead time': '生产周期/交货期。从下订单到交货所需的时间。',
+                'SOP': 'SOP (Standard Operating Procedure) 标准作业程序。',
+                'QC': 'QC (Quality Control) 质量控制。',
+                'QA': 'QA (Quality Assurance) 质量保证。',
+                'SEO': 'SEO (Search Engine Optimization) 搜索引擎优化。',
+                'SEM': 'SEM (Search Engine Marketing) 搜索引擎营销。',
+                'PPC': 'PPC (Pay-per-click) 按点击付费。',
+                'CTR': 'CTR (Click-through rate) 点击率。',
+                'B2B': 'B2B (Business to Business) 企业对企业电商模式。',
+                'B2C': 'B2C (Business to Consumer) 企业对消费者电商模式。',
+                'Dropshipping': 'Dropshipping 一件代发。无需备货，由供应商直接发货给客户。',
+                'Incoterms': 'Incoterms 国际贸易术语解释通则，规定了国际贸易中双方应承担的责任、费用和风险。',
+                'CBM': 'CBM (Cubic Meter) 立方米，用于计算货物体积。'
+            };
+
+            // 示意图数据库 - 采用实物图标+箭头+解释风格
+            const diagramDatabase = {
+                'FOB': `<span class="diagram-title">🚢 FOB 装运港船上交货</span>
+<div class="diagram-content">
+<span class="factory">🏭 卖方工厂</span> 
+   ⬇️ (内陆运输)
+<span class="warehouse">⚓ 装运港码头</span>
+   ⬇️
+   🚢 <span class="ship">【大船】</span>
+   ⬆️ (货物越过船舷)
+   📍 <span class="arrow">▶ 风险转移点 ◀</span>
+   ⬇️
+<span class="warehouse">🌍 目的港</span>
+
+【解释】卖方负责将货物运到船上，当货物<span class="ship">越过船舷</span>后，风险就转移给买方。
+</div>`,
+
+                'CIF': `<span class="diagram-title">🚢 CIF 成本+保险+运费</span>
+<div class="diagram-content">
+<span class="factory">🏭 卖方工厂</span>
+   ⬇️ (卖方租船订舱)
+   🚢 <span class="ship">【大船】</span> +  💰 保险
+   ⬇️ (卖方付运费/保险费)
+   📍 <span class="arrow">▶ 风险转移点 ◀</span> (越过船舷)
+   ⬇️
+<span class="warehouse">🌍 目的港 (买方清关)</span>
+
+【解释】卖方负责租船、付运费、买保险，直到货物越过船舷前都承担风险。
+</div>`,
+
+                'EXW': `<span class="diagram-title">🏭 EXW 工厂交货</span>
+<div class="diagram-content">
+<span class="factory">🏭 卖方工厂</span>
+   📍 <span class="arrow">◀ 买方来提货 ▶</span>
+   ⬇️ (买方负责所有)
+<span class="warehouse">🚛 买方运输</span>
+   ⬇️
+   🚢 买方装船
+
+【解释】卖方只把货备好，买方上门取货，承担之后所有费用和风险。
+</div>`,
+
+                'DDP': `<span class="diagram-title">🏁 DDP 完税后交货</span>
+<div class="diagram-content">
+<span class="factory">🏭 卖方工厂</span>
+   ⬇️ (卖方运输 + 保险)
+   🚢 <span class="ship">【大船】</span>
+   ⬇️ (进口清关)
+<span class="warehouse">🏢 进口国海关</span>  💰 关税
+   ⬇️
+📍 买方门口 <span class="arrow">◀ 交货点</span>
+
+【解释】卖方负责所有事，直到把货交到买方指定地点，风险才转移。
+</div>`,
+
+                'FCA': `<span class="diagram-title">🚚 FCA 货交承运人</span>
+<div class="diagram-content">
+<span class="factory">🏭 卖方工厂</span>
+   ⬇️
+   🚚 承运人提货点
+   📍 <span class="arrow">▶ 风险转移 ◀</span>
+   ⬇️
+   🚢 后续运输买方负责
+
+【解释】卖方在指定地点把货交给买方指定的承运人，风险即转移。
+</div>`,
+
+                'FAS': `<span class="diagram-title">⚓ FAS 船边交货</span>
+<div class="diagram-content">
+<span class="factory">🏭 卖方工厂</span>
+   ⬇️
+   ⚓ 码头船边
+   📍 <span class="arrow">▶ 货交船边 ◀</span>
+   ⬇️
+   🚢 <span class="ship">【大船】</span> (买方负责装船)
+
+【解释】卖方把货送到船边，之后装船和运输由买方负责。
+</div>`,
+
+                'L/C': `<span class="diagram-title">🏦 L/C 信用证流程</span>
+<div class="diagram-content">
+买方 <span class="arrow">→①申请→</span> 开证行
+   ⬇️ ②开证
+通知行 <span class="arrow">→③通知→</span> 卖方
+   ⬇️ ④发货
+   🚢 <span class="ship">【大船】</span>
+   ⬇️ ⑤交单
+议付行 <span class="arrow">→⑥寄单→</span> 开证行
+   ⬇️ ⑦付款
+   💰 买方
+
+【解释】银行信用介入，卖方凭单据收款，买方凭付款取单。
+</div>`,
+
+                'B/L': `<span class="diagram-title">📄 提单 B/L 样式</span>
+<div class="diagram-content">
+┌─────────────────────────┐
+│   📄 BILL OF LADING     │
+├─────────────────────────┤
+│ 托运人: <span class="factory">[Shipper]</span>    │
+│ 收货人: <span class="warehouse">[Consignee]</span>  │
+├─────────────────────────┤
+│ 船名: <span class="ship">🚢 [Vessel]</span>      │
+│ 航次: [Voyage]          │
+├─────────────────────────┤
+│ 装货港: <span class="arrow">⚓ POL</span>       │
+│ 卸货港: <span class="arrow">🌍 POD</span>       │
+├─────────────────────────┤
+│ 正本份数: 3/3           │
+└─────────────────────────┘
+
+【解释】货物收据、运输合同、物权凭证，是海运最重要的单据。
+</div>`,
+
+                'FCL': `<span class="diagram-title">📦 FCL 整箱货</span>
+<div class="diagram-content">
+┌─────────────────────┐
+│  ＿＿＿＿＿＿＿＿＿＿＿  │
+│ |   <span class="factory">你的货</span>    | │
+│ |   (填满)       | │
+│  ￣￣￣￣￣￣￣￣￣  │
+│      🚢 一个集装箱     │
+└─────────────────────┘
+
+【解释】一个集装箱只装一个货主的货，安全私密，整箱交接。
+</div>`,
+
+                'LCL': `<span class="diagram-title">🧩 LCL 拼箱货</span>
+<div class="diagram-content">
+┌─────────────────────┐
+│  ＿＿＿  ＿＿＿  ＿＿＿ │
+│ | A |  | B |  | C | │
+│  ￣￣￣  ￣￣￣  ￣￣￣ │
+│  ＿＿＿  ＿＿＿       │
+│ | D |  | E |       │
+│  ￣￣￣  ￣￣￣       │
+│      🚢 一个集装箱     │
+└─────────────────────┘
+
+【解释】多个货主的货拼在一个集装箱里，适合小批量，分摊运费。
+</div>`,
+
+                'T/T': `<span class="diagram-title">💸 T/T 电汇</span>
+<div class="diagram-content">
+买方银行 <span class="arrow">──SWIFT──▶</span> 卖方银行
+   ⬆️                     ⬇️
+ 付款                     收款
+   │                      │
+   └────────到账通知──────┘
+
+【解释】买方通过银行电汇货款，速度快，常用于定金或尾款。
+</div>`,
+
+                'D/P': `<span class="diagram-title">📮 D/P 付款交单</span>
+<div class="diagram-content">
+卖方发货 <span class="arrow">→→→</span> 买方银行
+   ⬇️                     ⬇️
+ 交单                    通知买方
+   ⬆️                     ⬇️
+ 付款←────────────────付款
+
+【解释】买方付款后才能拿到提货单据，风险较低。
+</div>`,
+
+                'O/A': `<span class="diagram-title">📅 O/A 赊销</span>
+<div class="diagram-content">
+卖方发货 <span class="arrow">──────────▶</span> 买方收货
+   ⬇️                         ⬇️
+   └──── 约定时间 (30/60天) ──┘
+                    ⬇️
+                 买方付款
+
+【解释】先发货后付款，风险高但能增强竞争力。
+</div>`
+            };
+
+            // 计算公式数据库
+            const formulaDatabase = {
+                'FOB': `<span class="formula-title">🧮 FOB 价格计算公式</span>
+<div class="formula">
+FOB = 出厂价 + 国内费用 + 预期利润
+
+其中：
+• 出厂价 = 生产成本 + 企业利润
+• 国内费用 = 报关费 + 内陆运费 + 港杂费 + 装箱费
+• 预期利润 = 出厂价 × 利润率
+</div>
+<div class="example">
+【示例】某商品出厂价100元，国内费用20元，利润率10%
+FOB = 100 + 20 + 100×10% = 130元
+</div>
+<div class="note">注：FOB价格不含国际运费和保险费</div>`,
+
+                'CIF': `<span class="formula-title">🧮 CIF 价格计算公式</span>
+<div class="formula">
+CIF = FOB + 国际运费 + 保险费
+
+保险费 = CIF × (1 + 投保加成率) × 保险费率
+
+或：
+CIF = (FOB + 国际运费) / [1 - 保险费率 × (1 + 投保加成率)]
+</div>
+<div class="example">
+【示例】FOB=130元，运费=20元，保险费率0.3%，投保加成10%
+CIF = (130+20) / (1 - 0.003×1.1) = 150 / 0.9967 ≈ 150.5元
+</div>
+<div class="note">投保加成通常为10%，即保额为CIF的110%</div>`,
+
+                'CFR': `<span class="formula-title">🧮 CFR 价格计算公式</span>
+<div class="formula">
+CFR = FOB + 国际运费
+
+或：
+CFR = CIF - 保险费
+</div>
+<div class="example">
+【示例】FOB=130元，运费=20元
+CFR = 130 + 20 = 150元
+</div>
+<div class="note">CFR与CIF的区别在于不包含保险费，保险由买方自行购买</div>`,
+
+                'EXW': `<span class="formula-title">🧮 EXW 价格计算公式</span>
+<div class="formula">
+EXW = 生产成本 + 企业利润 + 包装费
+
+注：EXW是出厂价，不含任何运输、报关、保险费用
+</div>
+<div class="example">
+【示例】生产成本80元，企业利润20元，包装费5元
+EXW = 80 + 20 + 5 = 105元
+</div>
+<div class="note">买方需自行承担从工厂提货后的所有费用和风险</div>`,
+
+                'FCA': `<span class="formula-title">🧮 FCA 价格计算公式</span>
+<div class="formula">
+FCA = 出厂价 + 国内费用 (运至指定交货地)
+
+与FOB类似，但交货地点不一定是港口，可以是内陆货运站
+</div>
+<div class="example">
+【示例】出厂价105元，运至货运站费用15元
+FCA = 105 + 15 = 120元
+</div>
+<div class="note">卖方负责将货物交给买方指定的承运人，风险随之转移</div>`,
+
+                'CPT': `<span class="formula-title">🧮 CPT 价格计算公式</span>
+<div class="formula">
+CPT = FCA + 运费至指定目的地
+
+运费需付至合同约定的目的地点
+</div>
+<div class="example">
+【示例】FCA=120元，运费至目的国港口=30元
+CPT = 120 + 30 = 150元
+</div>
+<div class="note">卖方支付运费，但风险在货交承运人时转移</div>`,
+
+                'CIP': `<span class="formula-title">🧮 CIP 价格计算公式</span>
+<div class="formula">
+CIP = FCA + 运费 + 保险费
+
+保险费 = CIP × (1 + 投保加成率) × 保险费率
+</div>
+<div class="example">
+【示例】FCA=120元，运费=30元，保险费率0.3%，投保加成10%
+CIP = (120+30) / (1 - 0.003×1.1) = 150 / 0.9967 ≈ 150.5元
+</div>
+<div class="note">CIP是CPT加保险，适用于任何运输方式</div>`,
+
+                'DAP': `<span class="formula-title">🧮 DAP 价格计算公式</span>
+<div class="formula">
+DAP = 出厂价 + 所有运输费用 + 保险费 (至指定地点)
+
+卖方负责将货物运至指定地点，但不负责卸货和进口清关
+</div>
+<div class="example">
+【示例】出厂价100元，全程运费+保险=80元
+DAP = 100 + 80 = 180元
+</div>
+<div class="note">买方负责卸货和进口清关</div>`,
+
+                'DDP': `<span class="formula-title">🧮 DDP 价格计算公式</span>
+<div class="formula">
+DDP = 出厂价 + 所有运输费用 + 保险费 + 进口关税 + 进口清关费
+
+卖方承担所有费用和风险，直至货物交付买方
+</div>
+<div class="example">
+【示例】出厂价100元，运费保险80元，关税20元，清关费5元
+DDP = 100 + 80 + 20 + 5 = 205元
+</div>
+<div class="note">DDP是卖方责任最大的贸易术语</div>`,
+
+                'FAS': `<span class="formula-title">🧮 FAS 价格计算公式</span>
+<div class="formula">
+FAS = 出厂价 + 国内费用 (运至船边)
+
+卖方负责将货物运至装运港船边，之后装船由买方负责
+</div>
+<div class="example">
+【示例】出厂价100元，运至船边费用25元
+FAS = 100 + 25 = 125元
+</div>
+<div class="note">风险在货物交到船边时转移</div>`
+            };
+
+            // ---------- 客户开发渠道数据 ----------
+            const channelDatabase = {
+                'B2B平台': 'B2B平台如阿里巴巴国际站、中国制造网、环球资源等。建立公司主页，发布产品，主动联系询盘，积累客户。',
+                '展会': '参加国内外行业展会（如广交会、香港电子展），现场展示产品，交换名片，会后跟进。适合展示新品和面对面沟通。',
+                '社交媒体': '利用LinkedIn、Facebook、Instagram等社交平台，建立专业账号，加入行业群组，发布内容吸引潜在客户。',
+                '海关数据': '购买或使用海关数据（如ImportGenius、Panjiva），分析目标市场进口商，直接联系采购负责人。',
+                '搜索引擎': '通过Google、Bing等搜索关键词（如产品名+importer/buyer），找到潜在客户官网，挖掘联系方式。',
+                '邮件营销': '收集目标客户邮箱，发送定制开发信，持续跟进。需注意邮件内容质量和发送频率，避免被拉黑。',
+                '谷歌地图': '利用谷歌地图搜索目标市场商铺、工厂，获取电话和网站，适合本地化开发。',
+                '行业名录': '查询行业协会网站、商业名录（如Kompass、ThomasNet），获取会员企业信息。',
+                '客户推荐': '维护好现有客户，请求推荐新客户，成交率往往更高。',
+                '贸促机构': '联系中国贸促会、各国驻华使馆商务处，获取潜在买家信息或参加对接活动。'
+            };
+
+            // ---------- 国家习俗数据库 ----------
+            const countryDatabase = {
+                '日本': {
+                    timezone: 9,
+                    business: '日本人注重礼仪和等级制度，决策需层层审批，谈判时惯用“沉默破坚冰”。初次见面要鞠躬，名片要用双手递上，且文字面向对方。避免直接说“不”，改用“需要进一步研究”等委婉表达。',
+                    religion: '神道教和佛教为主，无明显饮食禁忌，但注意不要用筷子传递食物（类似火葬习俗）。',
+                    taboo: '忌数字“4”和“9”（发音同“死”和“苦”）。送礼不要送梳子，避免白色和荷花图案（用于葬礼）。',
+                    gift: '送礼是常见礼仪，一定要用包装纸包好，用双手递送。收到礼物时不要当面拆开。',
+                    negotiation: '注重长期关系，验货标准很高，但一旦建立信任忠诚度也很高。报价需合理，首次报价留有余地。'
+                },
+                '韩国': {
+                    timezone: 9,
+                    business: '韩国人讲究礼仪，善于谈判，条理分明，逻辑性强，态度庄重。要尊重其头衔和职位。',
+                    religion: '基督教和佛教为主，无特殊饮食禁忌。',
+                    taboo: '忌数字“4”。书写名字时忌用红色墨水（象征死亡）。',
+                    gift: '初次见面可送小礼物，用双手递接。礼物最好选择本国特产。',
+                    negotiation: '决策较快，但需高层确认。对价格敏感，善于讨价还价，要做好心理准备。'
+                },
+                '印度': {
+                    timezone: 5.5,
+                    business: '印度人重视人际关系，避免直接说“NO”，可用“we will see”代替。商务谈判节奏较慢，需多次跟进。',
+                    religion: '印度教为主，不吃牛肉；伊斯兰教不吃猪肉。许多高种姓印度人吃素，宴请时最好选择素食餐厅。',
+                    taboo: '忌用左手传递东西（左手被视为不洁）。避免谈论个人债务、贫困等话题。',
+                    gift: '送礼受欢迎，但不要送牛皮制品（触犯印度教）或猪皮制品（触犯穆斯林）。',
+                    negotiation: '价格敏感，喜欢讨价还价，对成交条件要求细致。尊重其宗教习惯可赢得信任。'
+                },
+                '美国': {
+                    timezone: -4,
+                    business: '美国人直率高效，珍惜时间，喜欢速战速决。报价要开门见山，提供整套方案，强调效率和投资回报率。',
+                    religion: '基督教为主，无特殊饮食禁忌。',
+                    taboo: '避免询问年龄、收入、宗教信仰等隐私。忌数字“13”和星期五。',
+                    gift: '送礼不宜太贵重，以免有贿赂嫌疑。商务场合常在结束时赠送小纪念品。',
+                    negotiation: '决策较快，注重数据和合同。对品质和服务要求高，喜欢创新产品。'
+                },
+                '德国': {
+                    timezone: 2,
+                    business: '德国人严谨规范，注重效率，追求品质，谈判风格审慎稳重，典型的“按流程”办事。一定要守时，称呼要用正式称谓（Herr/Frau + 姓氏）。',
+                    religion: '基督教为主，无特殊饮食禁忌。',
+                    taboo: '忌谈论战争、政治等敏感话题。商务场合忌节外生枝的闲谈。',
+                    gift: '礼物讲究实用和包装，避免送带有明显宗教或政治符号的物品。',
+                    negotiation: '准备工作要做足，注重技术细节和质量认证。对合同条款极为严格。'
+                },
+                '法国': {
+                    timezone: 2,
+                    business: '法国人浪漫健谈，时间观念不强。洽谈前需预约，着装趋于正式。忌过多谈论个人私事和家庭生活。',
+                    religion: '天主教为主，无特殊饮食禁忌。',
+                    taboo: '忌数字“13”。送礼避免送香水或化妆品（过于亲密）。不要打听政治倾向、个人收入。',
+                    gift: '喜欢精美包装的礼物，如书籍、音乐、巧克力等。',
+                    negotiation: '对商品质量要求很高，要求包装精美。合同细节需反复确认，最好派出对等人员。'
+                },
+                '英国': {
+                    timezone: 1,
+                    business: '英国人重身份、重等级，谈判时须注重身份的对等。商务谈判时要注重选择谈论的话题，宜谈天气，忌谈政治。',
+                    religion: '基督教为主，无特殊饮食禁忌。',
+                    taboo: '忌系有纹的领带（可能被视为军队仿制品）。不要把英国人称呼为“英国人”（English），用“British”更恰当。',
+                    gift: '送礼一般避免太贵重，通常在结束时赠送。',
+                    negotiation: '订立合同时注意索赔条款。英国人比较冷静持重，不轻易表露感情。'
+                },
+                '俄罗斯': {
+                    timezone: 3,
+                    business: '俄罗斯人计划性强，喜欢谈大额合同，对技术细节和索赔条款特别重视。英语使用较少，最好带翻译。',
+                    religion: '东正教为主，无特殊饮食禁忌。',
+                    taboo: '忌称呼“俄国人”（用“俄罗斯人”）。忌黑色（象征死亡）。',
+                    gift: '送礼受欢迎，鲜花送单数（忌双数），避免黄色。',
+                    negotiation: '特别善于讨价还价，对交易条件要求苛刻。签约后通常用TT电汇，很少用L/C。'
+                },
+                '中东/阿拉伯': {
+                    timezone: 4,
+                    business: '阿拉伯人重信义交情，谈生意必须先赢得他们的好感和信任。要尊重其宗教氛围，一天五次祷告不可打扰。',
+                    religion: '伊斯兰教，禁食猪肉和动物内脏，严格禁酒。着装保守，女士忌露肩和过膝。',
+                    taboo: '忌用左手传递东西。忌数字“13”。避免涉及政治问题，远离女性话题。',
+                    gift: '送礼很常见，但不要送酒、猪皮制品或含有女性图像的物品。',
+                    negotiation: '生活节奏缓慢，讨价还价是常态。谈判时肢体语言较多，喜欢面对面交流。'
+                },
+                '巴西': {
+                    timezone: -3,
+                    business: '巴西人热情友好，偏好面对面交流，决策较慢。商务会议通常会比计划的时间长，不要早退。',
+                    religion: '天主教为主，无特殊饮食禁忌。',
+                    taboo: '忌数字“13”。忌用大拇指和食指做“OK”手势（在巴西被视为粗俗）。不要直接用手接触食物。',
+                    gift: '送礼避免送紫色（悲伤）或黑色（死亡相关的颜色）。',
+                    negotiation: '追求量大低价，喜欢分期付款，对OEM模式感兴趣。尊重当地习惯可促进合作。'
+                },
+                '北欧（瑞典/挪威/芬兰等）': {
+                    timezone: 2,
+                    business: '北欧买家朴实谦恭、沉着冷静、务实高效。不善于讨价还价，喜欢就事论事。',
+                    religion: '基督教路德宗为主，无特殊饮食禁忌。',
+                    taboo: '芬兰忌双数鲜花（送5或7朵）。忌谈当地政治问题。',
+                    gift: '赴宴需准时，向女主人送鲜花（5或7朵）以示尊重。在主人敬酒前不宜先饮。',
+                    negotiation: '非常注重产品的质量、认证、环保、节能等方面，重视程度高于价格。'
+                },
+                '东南亚（泰国/越南等）': {
+                    timezone: 7,
+                    business: '东南亚商人大多和善诚恳、守时敬业。谈判氛围融洽，价格优惠、品质优的产品受欢迎。',
+                    religion: '佛教为主，泰国忌摸头部（包括小孩）。越南忌摸头部。',
+                    taboo: '忌用脚指物或跨过别人身体。礼物拿到后不能第一时间拆开。',
+                    gift: '初次见面可送公司标识的礼品，大方且有文化内涵。',
+                    negotiation: '注重性价比，喜欢有品牌的产品，邮件内容可详细展示公司实力。'
+                }
+            };
+
+            // ---------- 外贸流程明细数据库 ----------
+            const processDatabase = {
+                '询盘 Inquiry': '询盘是买卖双方初次接触，买方通过邮件、B2B平台等方式向卖方询问产品信息、价格、交货期等。操作指导：1. 及时回复（通常24小时内）；2. 详细了解客户背景；3. 提供专业产品资料和报价单；4. 记录客户需求以便后续跟进。',
+                '发盘 Offer': '发盘是卖方向买方提出的具体交易条件，表示愿意按此条件订立合同。操作指导：1. 确保发盘内容完整（品名、数量、价格、交货期、付款方式等）；2. 明确发盘有效期；3. 区分实盘和虚盘；4. 发盘后需确认对方收到。',
+                '还盘 Counter-offer': '还盘是买方对发盘的修改或提出新条件。操作指导：1. 仔细分析对方还盘条件；2. 计算成本变化；3. 可多次还盘，但注意保持沟通顺畅；4. 记录每次修改内容，避免混乱。',
+                '接受 Acceptance': '接受是买方或卖方无条件同意对方发盘或还盘的全部条件。操作指导：1. 确认所有条款无误；2. 接受通知应在有效期内发出；3. 接受生效后合同即成立；4. 可简单回复“Accept”并附上最终条款确认。',
+                '签订合同 Sign Contract': '签订正式销售合同，明确双方权利义务。操作指导：1. 使用标准合同模板，填写完整；2. 注意交货期、付款方式、违约责任等关键条款；3. 双方盖章签字；4. 扫描并保存电子版，双方各执一份。',
+                '备货准备': '备货准备是合同签订后开始安排生产或采购。操作指导：1. 根据合同要求制定生产计划；2. 确认原材料/辅料到位；3. 与工厂沟通交期；4. 准备生产通知单。',
+                '跟进生产进度': '定期跟进生产进度，确保按时交货。操作指导：1. 每周至少与工厂沟通一次；2. 记录实际进度与计划对比；3. 及时处理生产中出现的问题；4. 拍照或视频留证。',
+                '安排质检/验货': '在货物完成或关键节点进行质量检验。操作指导：1. 根据合同要求确定检验标准；2. 可自行检验或委托第三方（如SGS）；3. 出具检验报告；4. 发现问题及时返工。',
+                '确认包装与唛头': '确认货物的包装方式和唛头内容。操作指导：1. 根据合同或运输要求确定包装（木箱、纸箱、托盘等）；2. 确认唛头（正唛、侧唛）内容准确；3. 拍照确认；4. 确保包装适合长途海运。',
+                '备妥货物': '货物生产完成并包装好，准备出运。操作指导：1. 清点数量，核对唛头；2. 安排存入仓库；3. 通知货代准备订舱；4. 准备相关单证。',
+                '租船订舱 Booking & Shipping': '向船公司或货代预订舱位。操作指导：1. 根据货物数量选择整箱（FCL）或拼箱（LCL）；2. 提供货物信息（品名、件重尺）；3. 获取订舱确认（S/O）；4. 安排拖车装货。',
+                '出口报关 Export Customs Clearance': '向海关申报货物出口。操作指导：1. 准备报关单、发票、装箱单、合同等；2. 委托报关行或自行申报；3. 配合海关查验（如有）；4. 获取放行通知。',
+                '投保 Insurance': '为货物购买运输保险。操作指导：1. 根据合同确定保险险别（如一切险、水渍险）；2. 向保险公司投保；3. 获取保险单；4. 确保保险金额正确。',
+                '装船 Loading': '将货物装上船只。操作指导：1. 配合码头安排装船；2. 获取装船通知；3. 核对提单信息；4. 确认货物已装船。',
+                '制单 Document Preparation': '制作结汇所需的各种单据。操作指导：1. 根据信用证或合同要求制作发票、装箱单、提单、原产地证等；2. 确保单单一致、单证一致；3. 交银行议付前仔细核对；4. 可委托专业制单员操作。',
+                '结汇 Settlement': '向银行提交单据，收回货款。操作指导：1. 按信用证或托收要求交单；2. 银行审核单据；3. 款项入账；4. 记录汇率和到账时间。',
+                '进口清关 Import Customs Clearance': '目的港进口方办理清关手续。操作指导：1. 提前将单据发给客户；2. 客户或其代理向海关申报；3. 缴纳关税；4. 海关放行后提货。',
+                '提货 Delivery': '收货人凭提单向码头提取货物。操作指导：1. 凭正本提单或电放保函换取提货单；2. 安排拖车到码头提货；3. 验货；4. 完成交易。'
+            };
+
+            // ---------- 外贸单据模板数据库（结构化，用于生成表格） ----------
+            const docDatabase = {
+                '形式发票 (Proforma Invoice)': {
+                    title: '形式发票 PROFORMA INVOICE',
+                    headers: ['品名', '数量', '单价', '总价'],
+                    rows: [
+                        ['', '', '', ''],
+                        ['', '', '', '']
+                    ],
+                    extra: [
+                        '付款方式：□ T/T  □ L/C  □ 其他______',
+                        '交货期：________________________',
+                        '有效期：________________________',
+                        '卖方签字：____________________'
+                    ]
+                },
+                '商业发票 (Commercial Invoice)': {
+                    title: 'COMMERCIAL INVOICE',
+                    headers: ['Marks & Nos', 'Description of Goods', 'Quantity', 'Unit Price', 'Amount', 'Total'],
+                    rows: [
+                        ['', '', '', '', '', ''],
+                        ['', '', '', '', '', ''],
+                        ['', '', '', '', '', '']
+                    ],
+                    extra: [
+                        'Invoice No.: ________________________',
+                        'Date: ________________________',
+                        'Seller: ________________________',
+                        'Buyer: ________________________',
+                        'L/C No.: ________________________',
+                        'Port of Loading: ________________________',
+                        'Port of Destination: ________________________',
+                        'Vessel: ________________________',
+                        '',
+                        'TOTAL QTY: ____________________',
+                        'TOTAL AMOUNT: ____________________',
+                        'Remarks: ________________________',
+                        'Signature: ____________________',
+                        'Date: ____________________'
+                    ]
+                },
+                '装箱单 (Packing List)': {
+                    title: '装箱单 PACKING LIST',
+                    headers: ['箱号', '品名', '件数', '毛重(kg)', '净重(kg)', '尺寸(cm)'],
+                    rows: [
+                        ['', '', '', '', '', ''],
+                        ['', '', '', '', '', '']
+                    ],
+                    extra: [
+                        '总箱数：______________________',
+                        '总体积：______________________ m³',
+                        '总毛重：______________________ kg',
+                        '总净重：______________________ kg',
+                        '备注：□ 木箱 □ 纸箱 □ 托盘 □ 其他______',
+                        '卖方签字：____________________'
+                    ]
+                },
+                '提单 (Bill of Lading)': {
+                    title: '提单 BILL OF LADING',
+                    headers: ['唛头', '件数', '包装种类', '品名', '毛重', '体积'],
+                    rows: [
+                        ['', '', '', '', '', ''],
+                        ['', '', '', '', '', '']
+                    ],
+                    extra: [
+                        '总件数：______________________',
+                        '总毛重：______________________',
+                        '总体积：______________________',
+                        '运费支付：□ 预付 □ 到付',
+                        '正本份数：____________________',
+                        '承运人签字：__________________'
+                    ]
+                },
+                '原产地证 (Certificate of Origin)': {
+                    title: '原产地证 CERTIFICATE OF ORIGIN',
+                    headers: ['品名', '原产地', '数量', '金额'],
+                    rows: [
+                        ['', '', '', ''],
+                        ['', '', '', '']
+                    ],
+                    extra: [
+                        '兹证明上述产品原产于____________________。',
+                        '发证机构：____________________',
+                        '日期：________________________',
+                        '签字：________________________'
+                    ]
+                },
+                '报关单 (Customs Declaration)': {
+                    title: '报关单 CUSTOMS DECLARATION',
+                    headers: ['商品编码', '品名', '数量', '单价', '总价', '原产地'],
+                    rows: [
+                        ['', '', '', '', '', ''],
+                        ['', '', '', '', '', '']
+                    ],
+                    extra: [
+                        '贸易方式：____________________',
+                        '运输方式：____________________',
+                        '运输工具：____________________',
+                        '申报人签字：__________________'
+                    ]
+                },
+                '保险单 (Insurance Policy)': {
+                    title: '保险单 INSURANCE POLICY',
+                    headers: ['险别', '保险金额', '保费', '备注'],
+                    rows: [
+                        ['一切险', '', '', ''],
+                        ['水渍险', '', '', '']
+                    ],
+                    extra: [
+                        '投保人：______________________',
+                        '被保险人：____________________',
+                        '发票号：______________________',
+                        '船名/航次：____________________',
+                        '开航日期：____________________',
+                        '运输路线：____________________',
+                        '保险公司：____________________',
+                        '签字：________________________'
+                    ]
+                },
+                '信用证 (L/C)': {
+                    title: '信用证 LETTER OF CREDIT',
+                    headers: ['单据名称', '是否要求', '份数'],
+                    rows: [
+                        ['商业发票', '□ 是 □ 否', ''],
+                        ['装箱单', '□ 是 □ 否', ''],
+                        ['提单', '□ 是 □ 否', ''],
+                        ['原产地证', '□ 是 □ 否', ''],
+                        ['保险单', '□ 是 □ 否', '']
+                    ],
+                    extra: [
+                        '开证行：______________________',
+                        '信用证号：____________________',
+                        '开证日期：____________________',
+                        '有效期：______________________',
+                        '受益人：______________________',
+                        '申请人：______________________',
+                        '金额：________________________',
+                        '币种：________________________',
+                        '最迟装运日：__________________',
+                        '分批装运：□ 允许 □ 不允许',
+                        '转运：□ 允许 □ 不允许',
+                        '开证行签字：__________________'
+                    ]
+                }
+            };
+
+            // ---------- 客户已读不回邮件模板数据库 ----------
+            const unreplyDatabase = {
+                '📩 第一封：礼貌提醒（初次跟进）': 
+`Subject: Following up on our previous conversation
+
+Dear [Client Name],
+
+I hope this email finds you well. I’m writing to follow up on my previous email regarding [product/service]. I understand you might be busy, but I’d love to hear your thoughts if you have a moment.
+
+Looking forward to your reply.
+
+Best regards,
+[Your Name]
+[Your Company]
+
+--------------------------------------------------
+主题：跟进我们之前的沟通
+
+尊敬的[客户名称]，
+
+希望您一切顺利。我再次致信，跟进之前关于[产品/服务]的邮件。我理解您可能很忙，如果您有空的话，我很想听听您的看法。
+
+期待您的回复。
+
+此致
+[您的姓名]
+[您的公司]`,
+                '📩 第二封：提供价值（分享行业资讯）': 
+`Subject: A quick resource for you
+
+Dear [Client Name],
+
+I came across this article/report about [industry topic] and thought it might be valuable for you. Even if you're not ready to move forward with [product/service], I hope you find it useful.
+
+Link: [URL or attachment]
+
+Let me know if you have any questions!
+
+Best,
+[Your Name]
+
+--------------------------------------------------
+主题：为您提供一个资源
+
+尊敬的[客户名称]，
+
+我偶然看到这篇关于[行业话题]的文章/报告，觉得可能对您有价值。即使您目前还不打算推进[产品/服务]，也希望它能对您有所帮助。
+
+链接：[URL 或附件]
+
+如有任何问题，请随时告知！
+
+祝好
+[您的姓名]`,
+                '📩 第三封：强调合作优势（案例分享）': 
+`Subject: How we helped [similar client] achieve [result]
+
+Dear [Client Name],
+
+I wanted to share a quick success story: we recently worked with [similar client] and helped them [specific result]. I believe we could achieve similar results for you.
+
+Would you be open to a brief call next week? Let me know your availability.
+
+Cheers,
+[Your Name]
+
+--------------------------------------------------
+主题：我们如何帮助[类似客户]达成[成果]
+
+尊敬的[客户名称]，
+
+我想分享一个简短的成功案例：我们最近与[类似客户]合作，帮助他们实现了[具体成果]。我相信我们也能为您带来类似的成效。
+
+您愿意下周安排一次简短的通话吗？请告知您方便的时间。
+
+祝好
+[您的姓名]`,
+                '📩 第四封：直接电话邀约': 
+`Subject: Quick call?
+
+Dear [Client Name],
+
+I’m planning to be in your area next week and wondered if you’d have 15 minutes for a quick coffee or call. I’d love to hear more about your current projects and see if there’s a way we can collaborate.
+
+Let me know what works for you.
+
+Best,
+[Your Name]
+
+--------------------------------------------------
+主题：快速通话？
+
+尊敬的[客户名称]，
+
+我下周会在您所在区域，想看看您是否有15分钟时间喝杯咖啡或通个电话。我很想了解您当前的项目，看看是否有合作的可能。
+
+请告知您方便的时间。
+
+此致
+[您的姓名]`,
+                '📩 第五封：最后通牒（价格时效/库存）': 
+`Subject: Special offer expires soon
+
+Dear [Client Name],
+
+I’m writing to let you know that our current promotion / available stock will expire on [date]. If you’re still interested, this would be the perfect time to act.
+
+Please let me know if you have any questions or would like to proceed.
+
+Thank you for your time.
+
+Sincerely,
+[Your Name]
+
+--------------------------------------------------
+主题：特别优惠即将到期
+
+尊敬的[客户名称]，
+
+特此告知，我们的当前优惠/库存将于[日期]到期。如果您仍有兴趣，现在是采取行动的最佳时机。
+
+如有任何问题或希望推进，请告知。
+
+感谢您的时间。
+
+此致
+[您的姓名]`
+            };
+
+            // ---------- 价格谈判技巧数据库 ----------
+            const negotiateDatabase = {
+                '💬 技巧1：初次报价如何说明': 
+`当客户询问价格时，不要只报数字，要强调价值。
+话术（中英双语）：
+
+中文：
+“我们这款产品的价格是[金额]，它采用了[技术/材料]，能为您带来[具体利益]。相比普通产品，它的使用寿命长/效率高，长期来看性价比更高。”
+
+English:
+"The price for this product is [amount]. It incorporates [technology/material] which provides [specific benefit]. Compared to standard products, it offers longer lifespan/higher efficiency, making it more cost-effective in the long run."`,
+                '💬 技巧2：客户说太贵时如何回应': 
+`当客户说“太贵了”，不要直接降价，先了解原因。
+话术（中英双语）：
+
+中文：
+“我理解您的考虑。能否告诉我，您是觉得我们的价格超出了预算，还是与其他供应商相比有差距？我们可以探讨一下您的具体需求，看看是否有更适合的方案。”
+
+English:
+"I understand your concern. May I ask whether you feel our price is over your budget, or is it compared to other suppliers? We can discuss your specific requirements and see if there's a more suitable solution."`,
+                '💬 技巧3：客户说其他家更便宜': 
+`应对同行低价竞争，强调差异化。
+话术（中英双语）：
+
+中文：
+“价格确实是一个重要因素，但我也建议您比较一下我们的[售后/质量/服务]。我们提供[额外价值]，这是很多低价供应商无法保证的。长远来看，选择我们能让您避免很多潜在问题。”
+
+English:
+"Price is certainly important, but I'd also encourage you to consider our [after-sales/quality/service]. We offer [extra value] that many low-price suppliers cannot guarantee. In the long run, choosing us can help you avoid many potential issues."`,
+                '💬 技巧4：如何提出折扣条件': 
+`需要给出折扣时，设定条件，如批量或立即下单。
+话术（中英双语）：
+
+中文：
+“如果您能将订单量提高到[数量]，我可以为您申请一个额外折扣。或者，如果您今天能确认订单，我们也可以给您[百分比]的特别优惠。”
+
+English:
+"If you can increase the order quantity to [number], I can apply for an additional discount. Alternatively, if you can confirm the order today, we can offer you a special discount of [percentage]."`,
+                '💬 技巧5：如何用附加值说服': 
+`当价格无法让步时，提供附加值。
+话术（中英双语）：
+
+中文：
+“虽然价格方面确实很难再降，但我可以为您争取免费升级运输/延长保修期/赠送配件。这样您能用同样的价格获得更多价值。”
+
+English:
+"Although it's really difficult to lower the price further, I can try to get you free upgraded shipping/extended warranty/accessories. This way you get more value for the same price."`,
+                '💬 技巧6：应对客户压价（坚持底线）': 
+`如果客户持续压价，可以礼貌坚持。
+话术（中英双语）：
+
+中文：
+“我理解您对成本的关注，但这个价格已经是我们能给出的最优方案了。我们的报价基于高质量的材料和严格品控，降价将影响最终品质。希望您能理解。”
+
+English:
+"I understand your focus on cost, but this is already the best offer we can provide. Our pricing is based on high-quality materials and strict quality control; a further reduction would affect the final quality. I hope you can understand."`
+            };
+
+            // 获取下拉框元素
+            const termSelect = document.getElementById('termSelect');
+            const channelSelect = document.getElementById('channelSelect');
+            const countrySelect = document.getElementById('countrySelect');
+            const processSelect = document.getElementById('processSelect');
+            const docSelect = document.getElementById('docSelect');
+            const unreplySelect = document.getElementById('unreplySelect');
+            const negotiateSelect = document.getElementById('negotiateSelect');
+
+            // 按钮
+            const termSearchBtn = document.getElementById('termSearchBtn');
+            const channelSearchBtn = document.getElementById('channelSearchBtn');
+            const countrySearchBtn = document.getElementById('countrySearchBtn');
+            const processSearchBtn = document.getElementById('processSearchBtn');
+            const docSearchBtn = document.getElementById('docSearchBtn');
+            const unreplySearchBtn = document.getElementById('unreplySearchBtn');
+            const negotiateSearchBtn = document.getElementById('negotiateSearchBtn');
+
+            const copyBtn = document.getElementById('copyTableBtn');
+            const exportCsvBtn = document.getElementById('exportCsvBtn');
+            const exportExcelBtn = document.getElementById('exportExcelBtn');
+            const copyUnreplyBtn = document.getElementById('copyUnreplyBtn');
+            const copyNegotiateBtn = document.getElementById('copyNegotiateBtn');
+
+            // 当前选中的单据数据
+            let currentDocData = null;
+            let currentDocName = '';
+            let currentUnreplyContent = '';
+            let currentNegotiateContent = '';
+
+            // ---------- 术语高频排序列表 ----------
+            const highFrequencyTerms = [
+                'FOB', 'CIF', 'CFR', 'EXW', 'DDP', 'L/C', 'T/T', 'B/L', 'MOQ', 'OEM', 'ODM', 
+                'HS Code', 'Incoterms', 'ETA', 'ETD', 'S/C', 'P/I', 'C/O', 'FCL', 'LCL', 
+                'AWB', 'O/A', 'D/P', 'D/A', 'CAD', 'SWIFT', 'SGS', 'GSP', 'ICC-A', 'WPA', 
+                'FPA', 'GA', 'PA', 'FWRD', 'SEO', 'SEM', 'PPC', 'CTR', 'B2B', 'B2C', 
+                'Dropshipping', 'CBM', 'QC', 'QA', 'Lead time', 'SOP'
+            ];
+
+            // 填充术语下拉选项（高频在前，其余按字母顺序）
+            function populateTermSelect() {
+                const allTerms = Object.keys(termDatabase);
+                const sortedTerms = [];
+                highFrequencyTerms.forEach(term => {
+                    if (termDatabase[term]) sortedTerms.push(term);
+                });
+                const remaining = allTerms.filter(term => !highFrequencyTerms.includes(term)).sort();
+                sortedTerms.push(...remaining);
+
+                sortedTerms.forEach(term => {
+                    const option = document.createElement('option');
+                    option.value = term;
+                    option.textContent = term;
+                    termSelect.appendChild(option);
+                });
+            }
+
+            function populateChannelSelect() {
+                const sortedChannels = Object.keys(channelDatabase).sort();
+                sortedChannels.forEach(channel => {
+                    const option = document.createElement('option');
+                    option.value = channel;
+                    option.textContent = channel;
+                    channelSelect.appendChild(option);
+                });
+            }
+
+            function populateCountrySelect() {
+                const sortedCountries = Object.keys(countryDatabase).sort();
+                sortedCountries.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.textContent = country;
+                    countrySelect.appendChild(option);
+                });
+            }
+
+            function populateProcessSelect() {
+                const processOrder = [
+                    '询盘 Inquiry', '发盘 Offer', '还盘 Counter-offer', '接受 Acceptance', 
+                    '签订合同 Sign Contract', '备货准备', '跟进生产进度', '安排质检/验货', 
+                    '确认包装与唛头', '备妥货物', '租船订舱 Booking & Shipping', '出口报关 Export Customs Clearance', 
+                    '投保 Insurance', '装船 Loading', '制单 Document Preparation', '结汇 Settlement', 
+                    '进口清关 Import Customs Clearance', '提货 Delivery'
+                ];
+                processOrder.forEach(process => {
+                    if (processDatabase[process]) {
+                        const option = document.createElement('option');
+                        option.value = process;
+                        option.textContent = process;
+                        processSelect.appendChild(option);
+                    }
+                });
+            }
+
+            function populateDocSelect() {
+                const sortedDocs = Object.keys(docDatabase).sort();
+                sortedDocs.forEach(doc => {
+                    const option = document.createElement('option');
+                    option.value = doc;
+                    option.textContent = doc;
+                    docSelect.appendChild(option);
+                });
+            }
+
+            function populateUnreplySelect() {
+                const sortedTitles = Object.keys(unreplyDatabase).sort();
+                sortedTitles.forEach(title => {
+                    const option = document.createElement('option');
+                    option.value = title;
+                    option.textContent = title;
+                    unreplySelect.appendChild(option);
+                });
+            }
+
+            function populateNegotiateSelect() {
+                const sortedTitles = Object.keys(negotiateDatabase).sort();
+                sortedTitles.forEach(title => {
+                    const option = document.createElement('option');
+                    option.value = title;
+                    option.textContent = title;
+                    negotiateSelect.appendChild(option);
+                });
+            }
+
+            // 查询术语（新增示意图和计算公式）
+            function searchTerm() {
+                const selectedTerm = termSelect.value;
+                const termResult = document.getElementById('termResult');
+                const termDiagram = document.getElementById('termDiagram');
+                const termFormula = document.getElementById('termFormula');
+                
+                if (!selectedTerm) {
+                    termResult.innerHTML = `<p class="not-found">请先选择一个术语</p>`;
+                    termDiagram.style.display = 'none';
+                    termFormula.style.display = 'none';
+                    return;
+                }
+                
+                const explanation = termDatabase[selectedTerm];
+                termResult.innerHTML = `<p><span class="highlight">${selectedTerm}</span>: ${explanation}</p>`;
+                
+                // 检查是否有示意图
+                if (diagramDatabase[selectedTerm]) {
+                    termDiagram.innerHTML = diagramDatabase[selectedTerm];
+                    termDiagram.style.display = 'block';
+                } else {
+                    termDiagram.style.display = 'none';
+                }
+                
+                // 检查是否有计算公式
+                if (formulaDatabase[selectedTerm]) {
+                    termFormula.innerHTML = formulaDatabase[selectedTerm];
+                    termFormula.style.display = 'block';
+                } else {
+                    termFormula.style.display = 'none';
+                }
+            }
+
+            function searchChannel() {
+                const selectedChannel = channelSelect.value;
+                const channelResult = document.getElementById('channelResult');
+                if (!selectedChannel) {
+                    channelResult.innerHTML = `<p class="not-found">请先选择一个客户开发渠道</p>`;
+                    return;
+                }
+                const explanation = channelDatabase[selectedChannel];
+                channelResult.innerHTML = `<p><span class="highlight">${selectedChannel}</span>: ${explanation}</p>`;
+            }
+
+            function getLocalStatus(hour) {
+                if (hour >= 0 && hour < 6) return '深夜，大部分人在休息，不宜电话沟通，可发邮件。';
+                if (hour >= 6 && hour < 9) return '清晨，准备开始一天工作，可发邮件或留语音消息。';
+                if (hour >= 9 && hour < 12) return '上午工作时间，适合电话或邮件沟通。';
+                if (hour >= 12 && hour < 14) return '午休时间，非紧急事务请避开。';
+                if (hour >= 14 && hour < 18) return '下午工作时间，适合业务跟进。';
+                if (hour >= 18 && hour < 21) return '傍晚/晚餐时间，可发邮件，不建议电话打扰。';
+                if (hour >= 21 && hour < 24) return '夜晚，休息时间，紧急事务可发短信/邮件。';
+                return '';
+            }
+
+            function searchCountry() {
+                const selectedCountry = countrySelect.value;
+                const countryResult = document.getElementById('countryResult');
+                if (!selectedCountry) {
+                    countryResult.innerHTML = `<p class="not-found">请先选择一个国家/地区</p>`;
+                    return;
+                }
+                const info = countryDatabase[selectedCountry];
+                
+                const now = new Date();
+                const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+                const localTime = new Date(utc + (3600000 * info.timezone));
+                const hours = localTime.getHours();
+                const minutes = localTime.getMinutes().toString().padStart(2, '0');
+                const timeStr = `${localTime.getFullYear()}-${(localTime.getMonth()+1).toString().padStart(2,'0')}-${localTime.getDate().toString().padStart(2,'0')} ${hours.toString().padStart(2,'0')}:${minutes}`;
+                const status = getLocalStatus(hours);
+
+                let html = `<div class="country-section">`;
+                html += `<p><span class="highlight">${selectedCountry}</span></p>`;
+                html += `<div class="time-info">⏰ 当地时间：${timeStr}（UTC${info.timezone >=0 ? '+' : ''}${info.timezone}）<br>📌 状态：${status}</div>`;
+                if (info.business) html += `<p><strong>📋 商业习俗</strong>：${info.business}</p>`;
+                if (info.religion) html += `<p><strong>🕊️ 宗教习惯</strong>：${info.religion}</p>`;
+                if (info.taboo) html += `<p><strong>⚠️ 禁忌/避讳</strong>：${info.taboo}</p>`;
+                if (info.gift) html += `<p><strong>🎁 送礼礼仪</strong>：${info.gift}</p>`;
+                if (info.negotiation) html += `<p><strong>🤝 谈判风格</strong>：${info.negotiation}</p>`;
+                html += `</div>`;
+                countryResult.innerHTML = html;
+            }
+
+            function searchProcess() {
+                const selectedProcess = processSelect.value;
+                const processResult = document.getElementById('processResult');
+                if (!selectedProcess) {
+                    processResult.innerHTML = `<p class="not-found">请先选择一个环节</p>`;
+                    return;
+                }
+                const explanation = processDatabase[selectedProcess];
+                processResult.innerHTML = `<p><span class="highlight">${selectedProcess}</span><br>${explanation}</p>`;
+            }
+
+            function searchUnreply() {
+                const selected = unreplySelect.value;
+                const resultDiv = document.getElementById('unreplyResult');
+                if (!selected) {
+                    resultDiv.innerHTML = `<p class="not-found">请先选择一个模板</p>`;
+                    copyUnreplyBtn.style.display = 'none';
+                    return;
+                }
+                const content = unreplyDatabase[selected];
+                currentUnreplyContent = content;
+                const formatted = content.replace(/\n/g, '<br>');
+                resultDiv.innerHTML = `<p><span class="highlight">${selected}</span></p><p>${formatted}</p>`;
+                copyUnreplyBtn.style.display = 'inline-flex';
+            }
+
+            function searchNegotiate() {
+                const selected = negotiateSelect.value;
+                const resultDiv = document.getElementById('negotiateResult');
+                if (!selected) {
+                    resultDiv.innerHTML = `<p class="not-found">请先选择一种话术</p>`;
+                    copyNegotiateBtn.style.display = 'none';
+                    return;
+                }
+                const content = negotiateDatabase[selected];
+                currentNegotiateContent = content;
+                const formatted = content.replace(/\n/g, '<br>');
+                resultDiv.innerHTML = `<p><span class="highlight">${selected}</span></p><p>${formatted}</p>`;
+                copyNegotiateBtn.style.display = 'inline-flex';
+            }
+
+            // 辅助函数：根据标题获取列宽（像素）
+            function getColWidth(header) {
+                if (header.includes('品名') || header.includes('Description')) return 150;
+                if (header.includes('Marks')) return 120;
+                if (header.includes('箱号')) return 80;
+                if (header.includes('件数') || header.includes('Quantity')) return 70;
+                if (header.includes('毛重') || header.includes('净重') || header.includes('毛重') || header.includes('净重')) return 90;
+                if (header.includes('尺寸')) return 90;
+                if (header.includes('单价') || header.includes('Unit Price')) return 100;
+                if (header.includes('总价') || header.includes('Amount') || header.includes('Total') || header.includes('金额')) return 100;
+                if (header.includes('商品编码')) return 120;
+                if (header.includes('原产地')) return 100;
+                if (header.includes('包装种类')) return 100;
+                if (header.includes('险别')) return 80;
+                if (header.includes('保险金额')) return 100;
+                if (header.includes('保费')) return 70;
+                if (header.includes('单据名称')) return 120;
+                if (header.includes('是否要求')) return 80;
+                if (header.includes('份数')) return 60;
+                return 100;
+            }
+
+            function generateTableHTML(docData) {
+                const alignClasses = docData.headers.map(header => {
+                    if (header.includes('单价') || header.includes('Unit Price') || header.includes('总价') || header.includes('Amount') || header.includes('Total') || header.includes('金额') || header.includes('保费')) {
+                        return 'text-right';
+                    } else if (header.includes('数量') || header.includes('Quantity') || header.includes('件数') || header.includes('箱号') || header.includes('份数') || header.includes('毛重') || header.includes('净重')) {
+                        return 'text-center';
+                    } else {
+                        return 'text-left';
+                    }
+                });
+
+                let html = `<div class="template-title">${docData.title}</div>`;
+                html += `<table class="template-table">`;
+                html += `<colgroup>`;
+                docData.headers.forEach(header => {
+                    html += `<col width="${getColWidth(header)}">`;
+                });
+                html += `</colgroup>`;
+                html += `<thead><tr>`;
+                docData.headers.forEach(h => {
+                    html += `<th>${h}</th>`;
+                });
+                html += `</tr></thead><tbody>`;
+                docData.rows.forEach(row => {
+                    html += `<tr>`;
+                    row.forEach((cell, index) => {
+                        const align = alignClasses[index] || 'text-left';
+                        html += `<td class="${align}">${cell}</td>`;
+                    });
+                    html += `</tr>`;
+                });
+                html += `</tbody></table>`;
+                html += `<div class="template-extra">`;
+                docData.extra.forEach(line => {
+                    if (line === '') {
+                        html += `<br>`;
+                    } else {
+                        html += `<div>${line}</div>`;
+                    }
+                });
+                html += `</div>`;
+                return html;
+            }
+
+            function generateFullHTMLDoc(docData) {
+                const alignClasses = docData.headers.map(header => {
+                    if (header.includes('单价') || header.includes('Unit Price') || header.includes('总价') || header.includes('Amount') || header.includes('Total') || header.includes('金额') || header.includes('保费')) {
+                        return 'text-right';
+                    } else if (header.includes('数量') || header.includes('Quantity') || header.includes('件数') || header.includes('箱号') || header.includes('份数') || header.includes('毛重') || header.includes('净重')) {
+                        return 'text-center';
+                    } else {
+                        return 'text-left';
+                    }
+                });
+
+                return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+    body { font-family: '宋体', SimSun, 'Arial', sans-serif; margin: 20px; }
+    .template-title { font-size: 16pt; font-weight: 700; text-align: center; margin: 15px 0 10px; letter-spacing: 1px; }
+    table { border-collapse: collapse; width: auto; margin: 0 auto; border: 1px solid #000; font-size: 11pt; table-layout: fixed; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    th { background: #e0e7f0; border: 1px solid #000; padding: 10px 14px; text-align: center; font-weight: 600; white-space: nowrap; }
+    td { border: 1px solid #000; padding: 8px 12px; white-space: nowrap; }
+    td.text-left { text-align: left; }
+    td.text-center { text-align: center; }
+    td.text-right { text-align: right; }
+    .extra { font-size: 10.5pt; margin-top: 12px; line-height: 1.7; }
+    .extra div { margin: 2px 0; }
+</style>
+</head>
+<body>
+    <div class="template-title">${docData.title}</div>
+    <table>
+        <colgroup>
+            ${docData.headers.map(header => `<col width="${getColWidth(header)}">`).join('')}
+        </colgroup>
+        <thead>
+            <tr>${docData.headers.map(h => `<th>${h}</th>`).join('')}</tr>
+        </thead>
+        <tbody>
+            ${docData.rows.map(row => `<tr>${row.map((cell, idx) => `<td class="${alignClasses[idx]}">${cell}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+    </table>
+    <div class="extra">
+        ${docData.extra.map(line => line === '' ? '<br>' : `<div>${line}</div>`).join('')}
+    </div>
+</body>
+</html>`;
+            }
+
+            function generateCSV(docData) {
+                let csv = docData.title + '\n\n';
+                csv += docData.headers.join(',') + '\n';
+                docData.rows.forEach(row => {
+                    csv += row.map(cell => `"${cell}"`).join(',') + '\n';
+                });
+                docData.extra.forEach(line => {
+                    if (line !== '') {
+                        csv += '"' + line + '"\n';
+                    }
+                });
+                return csv;
+            }
+
+            function copyTextToClipboard(text) {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        alert('内容已复制到剪贴板！');
+                    }).catch(() => {
+                        fallbackCopy(text);
+                    });
+                } else {
+                    fallbackCopy(text);
+                }
+            }
+
+            function fallbackCopy(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                textarea.setSelectionRange(0, 99999);
+                try {
+                    document.execCommand('copy');
+                    alert('内容已复制到剪贴板！');
+                } catch (err) {
+                    alert('复制失败，请手动复制。');
+                } finally {
+                    document.body.removeChild(textarea);
+                }
+            }
+
+            function searchDoc() {
+                const selectedDoc = docSelect.value;
+                const docResult = document.getElementById('docResult');
+                if (!selectedDoc) {
+                    docResult.innerHTML = `<p class="not-found">请先选择一个单据类型</p>`;
+                    copyBtn.style.display = 'none';
+                    exportCsvBtn.style.display = 'none';
+                    exportExcelBtn.style.display = 'none';
+                    return;
+                }
+                const docData = docDatabase[selectedDoc];
+                currentDocData = docData;
+                currentDocName = selectedDoc;
+                const html = generateTableHTML(docData);
+                docResult.innerHTML = html;
+                copyBtn.style.display = 'inline-flex';
+                exportCsvBtn.style.display = 'inline-flex';
+                exportExcelBtn.style.display = 'inline-flex';
+            }
+
+            function copyTable() {
+                if (!currentDocData) return;
+                const docData = currentDocData;
+                let text = docData.title + '\n\n';
+                text += docData.headers.join('\t') + '\n';
+                docData.rows.forEach(row => {
+                    text += row.join('\t') + '\n';
+                });
+                copyTextToClipboard(text);
+            }
+
+            function exportCSV() {
+                if (!currentDocData) return;
+                const csv = generateCSV(currentDocData);
+                const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${currentDocName.replace(/[\\/:*?"<>|]/g, '_')}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            function exportExcel() {
+                if (!currentDocData) return;
+                const fullHTML = generateFullHTMLDoc(currentDocData);
+                const blob = new Blob(['\uFEFF' + fullHTML], { type: 'application/vnd.ms-excel' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${currentDocName.replace(/[\\/:*?"<>|]/g, '_')}.xls`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            // 定义流程图代码（简化版，避免语法错误）
+            const flowDefinition = `
+            graph TD
+                A("询盘 Inquiry") --> B("发盘 Offer")
+                B --> C{"还盘 Counter-offer?"}
+                C -->|"是"| D("还盘 Counter-offer")
+                D --> B
+                C -->|"否"| E("接受 Acceptance")
+                E --> F("签订合同 Sign Contract")
+                F --> G("备货准备")
+                G --> H("跟进生产进度")
+                H --> I("安排质检/验货")
+                I --> J("确认包装与唛头")
+                J --> K("备妥货物")
+                K --> L("租船订舱")
+                L --> M("出口报关")
+                M --> N("投保")
+                N --> O("装船")
+                O --> P("制单")
+                P --> Q("结汇")
+                Q --> R("进口清关")
+                R --> S("提货 Delivery")
+                
+                style A fill:#d4e2f0,stroke:#1e3b5c,stroke-width:2px
+                style E fill:#d4e2f0,stroke:#1e3b5c,stroke-width:2px
+                style F fill:#c0d8f0,stroke:#1e3b5c,stroke-width:2px
+                style S fill:#d4e2f0,stroke:#1e3b5c,stroke-width:2px
+                style C fill:#ffe7b3,stroke:#b38f4c,stroke-width:2px
+            `;
+
+            // 流程图渲染函数
+            function renderFlowchart() {
+                const wrapper = document.querySelector('#card-flow .mermaid-wrapper');
+                if (!wrapper) return;
+                
+                // 清空包装器
+                wrapper.innerHTML = '';
+                
+                // 创建新的pre元素
+                const pre = document.createElement('pre');
+                pre.className = 'mermaid';
+                pre.textContent = flowDefinition;
+                wrapper.appendChild(pre);
+                
+                // 调用mermaid渲染
+                try {
+                    mermaid.init(undefined, pre);
+                } catch (e) {
+                    console.error('流程图渲染失败:', e);
+                    // 如果渲染失败，显示简单的文本替代
+                    wrapper.innerHTML = '<div style="text-align:center; padding:20px; background:#f9f9f9; border-radius:10px;">流程图加载失败，请刷新重试</div>';
+                }
+            }
+
+            // 标记流程图是否已渲染
+            let flowRendered = false;
+
+            // 手风琴折叠功能
+            function initAccordion() {
+                const cards = document.querySelectorAll('.query-card');
+                const headers = document.querySelectorAll('.card-header');
+                
+                cards.forEach((card, index) => {
+                    if (index === 0) {
+                        card.classList.add('expanded');
+                        card.querySelector('.card-content').style.display = 'block';
+                        card.querySelector('.accordion-icon').textContent = '▼';
+                    } else {
+                        card.classList.remove('expanded');
+                        card.querySelector('.card-content').style.display = 'none';
+                        card.querySelector('.accordion-icon').textContent = '▶';
+                    }
+                });
+
+                headers.forEach(header => {
+                    header.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const card = this.closest('.query-card');
+                        const isExpanded = card.classList.contains('expanded');
+                        
+                        if (isExpanded) {
+                            card.classList.remove('expanded');
+                            card.querySelector('.card-content').style.display = 'none';
+                            card.querySelector('.accordion-icon').textContent = '▶';
+                        } else {
+                            cards.forEach(c => {
+                                c.classList.remove('expanded');
+                                c.querySelector('.card-content').style.display = 'none';
+                                c.querySelector('.accordion-icon').textContent = '▶';
+                            });
+                            card.classList.add('expanded');
+                            card.querySelector('.card-content').style.display = 'block';
+                            card.querySelector('.accordion-icon').textContent = '▼';
+
+                            // 如果展开的是流程图卡片且尚未渲染，则渲染流程图
+                            if (card.id === 'card-flow' && !flowRendered) {
+                                setTimeout(() => {
+                                    renderFlowchart();
+                                    flowRendered = true;
+                                }, 100);
+                            }
+                        }
+                    });
+                });
+            }
+
+            // 绑定事件
+            termSearchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchTerm();
+            });
+            channelSearchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchChannel();
+            });
+            countrySearchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchCountry();
+            });
+            processSearchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchProcess();
+            });
+            docSearchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchDoc();
+            });
+            unreplySearchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchUnreply();
+            });
+            negotiateSearchBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                searchNegotiate();
+            });
+
+            copyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                copyTable();
+            });
+            exportCsvBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                exportCSV();
+            });
+            exportExcelBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                exportExcel();
+            });
+            copyUnreplyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                copyTextToClipboard(currentUnreplyContent);
+            });
+            copyNegotiateBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                copyTextToClipboard(currentNegotiateContent);
+            });
+
+            // 回车支持
+            termSelect.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchTerm(); } });
+            channelSelect.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchChannel(); } });
+            countrySelect.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchCountry(); } });
+            processSelect.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchProcess(); } });
+            docSelect.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchDoc(); } });
+            unreplySelect.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchUnreply(); } });
+            negotiateSelect.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchNegotiate(); } });
+
+            // 初始化填充下拉框
+            populateTermSelect();
+            populateChannelSelect();
+            populateCountrySelect();
+            populateProcessSelect();
+            populateDocSelect();
+            populateUnreplySelect();
+            populateNegotiateSelect();
+
+            // 初始化手风琴
+            initAccordion();
+
+            // 隐藏按钮初始状态
+            copyBtn.style.display = 'none';
+            exportCsvBtn.style.display = 'none';
+            exportExcelBtn.style.display = 'none';
+            copyUnreplyBtn.style.display = 'none';
+            copyNegotiateBtn.style.display = 'none';
+        })();
+    </script>
+</body>
+</html>
