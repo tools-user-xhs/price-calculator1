@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>成本利润计算工具 | 盈亏分析 & 记录追溯</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f2f5;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #2c3e66, #1e3c5c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .header p {
+            color: #5b6e8c;
+            margin-top: 0.4rem;
+            font-size: 0.95rem;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef2f8;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.3rem 1.8rem 0.6rem 1.8rem;
+            border-bottom: 1px solid #edf2f7;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .card-header h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #0f2b3d;
+            letter-spacing: -0.2px;
+        }
+        .card-header .sub {
+            font-size: 0.8rem;
+            color: #6c86a3;
+        }
+
+        .card-body {
+            padding: 1.5rem 1.8rem 1.8rem 1.8rem;
+        }
+
+        .param-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .input-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .input-row label {
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            color: #4a627a;
+        }
+        .input-row input {
+            padding: 0.8rem 1rem;
+            border: 1px solid #cfdfed;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            background: #fefefe;
+            transition: 0.2s;
+            font-family: inherit;
+            color: #0b2b3e;
+        }
+        .input-row input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+        }
+        .hint {
+            font-size: 0.7rem;
+            color: #7e95b0;
+            margin-top: 0.2rem;
+        }
+
+        .btn-calc {
+            background: #1f4a6e;
+            border: none;
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 0.5rem;
+            font-family: inherit;
+        }
+        .btn-calc:hover {
+            background: #0f3b58;
+            transform: translateY(-1px);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .metric-card {
+            background: #f8fafd;
+            border-radius: 24px;
+            padding: 1rem 0.9rem;
+            text-align: center;
+            border: 1px solid #e9f0f5;
+        }
+        .metric-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #5f7f9e;
+        }
+        .metric-value {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #1e2f3e;
+            margin-top: 0.3rem;
+            word-break: break-word;
+        }
+        .metric-unit {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #7795b0;
+        }
+        .positive {
+            color: #2c7a4d;
+        }
+        .negative {
+            color: #c2412c;
+        }
+        
+        .bep-card {
+            background: #fefce8;
+            border: 1px solid #fde68a;
+            border-radius: 20px;
+            padding: 1rem;
+            margin-top: 0.5rem;
+        }
+        .bep-title {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #854d0e;
+            margin-bottom: 0.5rem;
+        }
+        .bep-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #b45309;
+        }
+        .bep-note {
+            font-size: 0.7rem;
+            color: #a16207;
+            margin-top: 0.3rem;
+        }
+
+        .history-section {
+            margin-top: 2rem;
+        }
+        .history-card {
+            max-height: 460px;
+            overflow-y: auto;
+        }
+        .record-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        .record-table th {
+            text-align: left;
+            padding: 0.9rem 0.5rem 0.7rem 0;
+            font-weight: 600;
+            color: #4f6f8f;
+            border-bottom: 1px solid #e2edf5;
+            position: sticky;
+            top: 0;
+            background: white;
+        }
+        .record-table td {
+            padding: 0.7rem 0.5rem 0.7rem 0;
+            border-bottom: 1px solid #f0f4f9;
+            color: #234361;
+        }
+        .timestamp-col {
+            white-space: nowrap;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #5d7f9e;
+        }
+        .delete-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #b9cfec;
+            transition: 0.1s;
+            padding: 0 0.2rem;
+        }
+        .delete-btn:hover {
+            color: #e05a4f;
+        }
+        .empty-history {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            color: #9bb4ce;
+        }
+        .clear-all {
+            margin-top: 1rem;
+            text-align: right;
+        }
+        .btn-clear {
+            background: #f1f5f9;
+            border: 1px solid #dce5ec;
+            padding: 0.45rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            color: #567594;
+        }
+        .btn-clear:hover {
+            background: #e9eef3;
+        }
+        
+        .info-badge {
+            background: #e6f0fa;
+            border-radius: 12px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.7rem;
+            color: #2c6280;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .formula-hint {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 0.5rem;
+            font-size: 0.7rem;
+            color: #4a627a;
+            margin-top: 0.8rem;
+            text-align: center;
+        }
+
+        @media (max-width: 880px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            body {
+                padding: 1.2rem;
+            }
+        }
+        
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #9cb1ca;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📊 利润 & 盈亏分析工作台</h1>
+        <p>输入成本与售价，自动计算利润、毛利率、净利润率 | 盈亏平衡点独立于销量 | 每笔记录自动保存</p>
+    </div>
+
+    <div class="dashboard">
+        <div class="card">
+            <div class="card-header">
+                <h2>📐 参数配置</h2>
+                <span class="sub">单位: 元</span>
+            </div>
+            <div class="card-body">
+                <div class="param-group">
+                    <div class="input-row">
+                        <label>💰 销售价格 (单价)</label>
+                        <input type="number" id="price" value="120.00" step="0.01">
+                        <div class="hint">每件产品的售价</div>
+                    </div>
+                    <div class="input-row">
+                        <label>⚙️ 单位变动成本</label>
+                        <input type="number" id="variableCost" value="45.00" step="0.01">
+                        <div class="hint">每件产品的变动成本（材料、人工等）</div>
+                    </div>
+                    <div class="input-row">
+                        <label>🏭 固定总成本</label>
+                        <input type="number" id="fixedCost" value="2500.00" step="0.01">
+                        <div class="hint">周期内不随销量变化的成本（租金、固定薪资等）</div>
+                    </div>
+                    <div class="input-row">
+                        <label>📦 其他固定费用</label>
+                        <input type="number" id="otherFixedCost" value="0.00" step="0.01">
+                        <div class="hint">其他一次性或固定支出</div>
+                    </div>
+                    <div class="input-row">
+                        <label>📈 预期销量 (件)</label>
+                        <input type="number" id="quantity" value="120" step="1">
+                        <div class="hint">用于计算预期利润和利润率</div>
+                    </div>
+                </div>
+                <button class="btn-calc" id="calcBtn">✨ 计算并保存记录</button>
+                <div class="formula-hint">
+                    📐 利润 = 单价 × 销量 - (单位变动成本 × 销量 + 固定总成本 + 其他固定费用)
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>📈 核心指标</h2>
+                <span class="sub">基于当前预期销量</span>
+            </div>
+            <div class="card-body">
+                <div class="info-badge">
+                    📌 下方指标基于「预期销量 <span id="showQuantity">120</span> 件」计算
+                </div>
+                <div class="metrics-grid" id="metricsGrid"></div>
+                
+                <div class="bep-card">
+                    <div class="bep-title">⚖️ 盈亏平衡点 (BEP)</div>
+                    <div class="bep-value" id="bepValue">-- 件</div>
+                    <div class="bep-note">※ 销量达到此数量时，利润 = 0（不赚不亏）<br>※ 计算公式：固定总成本 ÷ (单价 - 单位变动成本)<br>※ 与上方预期销量无关，仅取决于售价、变动成本、固定成本</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="history-section">
+        <div class="card">
+            <div class="card-header">
+                <h2>📋 计算记录</h2>
+                <button class="btn-clear" id="clearAllBtn">清空全部记录</button>
+            </div>
+            <div class="card-body history-card" style="padding-top: 0;">
+                <div id="historyList"></div>
+            </div>
+        </div>
+    </div>
+    <footer>每次计算自动记录完整数据 · 支持追溯删除 · 数据本地存储</footer>
+</div>
+
+<script>
+    const STORAGE_KEY = "profit_calculator_history_v3";
+    let historyRecords = [];
+
+    const priceInput = document.getElementById('price');
+    const variableCostInput = document.getElementById('variableCost');
+    const fixedCostInput = document.getElementById('fixedCost');
+    const otherFixedCostInput = document.getElementById('otherFixedCost');
+    const quantityInput = document.getElementById('quantity');
+    const calcBtn = document.getElementById('calcBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const metricsGrid = document.getElementById('metricsGrid');
+    const bepSpan = document.getElementById('bepValue');
+    const showQuantitySpan = document.getElementById('showQuantity');
+    const historyContainer = document.getElementById('historyList');
+
+    function getCurrentParams() {
+        return {
+            price: parseFloat(priceInput.value) || 0,
+            variableCost: parseFloat(variableCostInput.value) || 0,
+            fixedCost: parseFloat(fixedCostInput.value) || 0,
+            otherFixedCost: parseFloat(otherFixedCostInput.value) || 0,
+            quantity: parseInt(quantityInput.value, 10) || 0
+        };
+    }
+
+    function calculateMetrics(params) {
+        const { price, variableCost, fixedCost, otherFixedCost, quantity } = params;
+        
+        // 核心计算公式（严格正确）
+        const totalRevenue = price * quantity;                          // 总收入 = 单价 × 销量
+        const totalVariableCost = variableCost * quantity;              // 总变动成本 = 单位变动成本 × 销量
+        const totalFixedCost = fixedCost + otherFixedCost;              // 总固定成本
+        const totalCost = totalVariableCost + totalFixedCost;           // 总成本
+        const profit = totalRevenue - totalCost;                        // 利润 = 总收入 - 总成本 ✅
+        
+        const grossProfit = totalRevenue - totalVariableCost;           // 毛利润
+        const grossMargin = totalRevenue === 0 ? 0 : (grossProfit / totalRevenue) * 100;
+        const netProfit = profit;
+        const netProfitMargin = totalRevenue === 0 ? 0 : (netProfit / totalRevenue) * 100;
+        const contributionMarginPerUnit = price - variableCost;          // 单位边际贡献
+        
+        // 盈亏平衡点 = 总固定成本 ÷ 单位边际贡献
+        let bepDisplay = "";
+        if (contributionMarginPerUnit <= 0) {
+            if (totalFixedCost === 0) {
+                bepDisplay = "0 件";
+            } else {
+                bepDisplay = "无法实现盈亏平衡 (单价 ≤ 变动成本)";
+            }
+        } else {
+            const bepQuantity = totalFixedCost / contributionMarginPerUnit;
+            bepDisplay = `${bepQuantity.toFixed(2)} 件`;
+        }
+        
+        // 返回详细数据用于展示和存储
+        return {
+            totalRevenue,
+            totalVariableCost,
+            totalFixedCost,
+            totalCost,
+            profit,
+            grossProfit,
+            grossMargin,
+            netProfit,
+            netProfitMargin,
+            contributionMarginPerUnit,
+            bepDisplay
+        };
+    }
+
+    // 实时更新预览区域
+    function updatePreviewMetrics() {
+        const params = getCurrentParams();
+        const metrics = calculateMetrics(params);
+        
+        showQuantitySpan.innerText = params.quantity;
+        
+        const formatCurrency = (val) => `¥${val.toFixed(2)}`;
+        const formatPercent = (val) => `${val.toFixed(2)}%`;
+        
+        // 验证计算是否正确：120×120=14400，45×120+2500=7900，14400-7900=6500 ✅
+        metricsGrid.innerHTML = `
+            <div class="metric-card">
+                <div class="metric-label">💰 总收入</div>
+                <div class="metric-value">${formatCurrency(metrics.totalRevenue)}</div>
+                <div class="metric-unit">${params.price} × ${params.quantity}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">📉 总成本</div>
+                <div class="metric-value">${formatCurrency(metrics.totalCost)}</div>
+                <div class="metric-unit">变动${formatCurrency(metrics.totalVariableCost)} + 固定${formatCurrency(metrics.totalFixedCost)}</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">📊 利润</div>
+                <div class="metric-value ${metrics.profit >= 0 ? 'positive' : 'negative'}">${formatCurrency(metrics.profit)}</div>
+                <div class="metric-unit">总收入 - 总成本</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">📈 毛利率</div>
+                <div class="metric-value">${formatPercent(metrics.grossMargin)}</div>
+                <div class="metric-unit">(营收-变动成本)/营收</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">🎯 净利润率</div>
+                <div class="metric-value">${formatPercent(metrics.netProfitMargin)}</div>
+                <div class="metric-unit">净利润 / 总收入</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">💎 单位边际贡献</div>
+                <div class="metric-value">¥${metrics.contributionMarginPerUnit.toFixed(2)}</div>
+                <div class="metric-unit">单价 - 单位变动成本</div>
+            </div>
+        `;
+        
+        bepSpan.innerText = metrics.bepDisplay;
+    }
+    
+    function getCurrentTimestamp() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+    
+    function saveCurrentRecord() {
+        const params = getCurrentParams();
+        const metrics = calculateMetrics(params);
+        
+        const record = {
+            id: Date.now() + Math.random() * 10000,
+            timestamp: getCurrentTimestamp(),
+            params: { ...params },
+            metrics: {
+                totalRevenue: metrics.totalRevenue,
+                totalCost: metrics.totalCost,
+                profit: metrics.profit,
+                grossMargin: metrics.grossMargin,
+                netProfitMargin: metrics.netProfitMargin,
+                bepDisplay: metrics.bepDisplay,
+                contributionMargin: metrics.contributionMarginPerUnit
+            }
+        };
+        
+        historyRecords.unshift(record);
+        saveHistoryToLocal();
+        renderHistoryTable();
+        
+        const originalText = calcBtn.innerText;
+        calcBtn.innerText = '✅ 已保存记录';
+        calcBtn.style.transform = "scale(0.98)";
+        setTimeout(() => { 
+            calcBtn.style.transform = ""; 
+            calcBtn.innerText = originalText;
+        }, 1200);
+    }
+    
+    function deleteRecordById(id) {
+        historyRecords = historyRecords.filter(rec => rec.id !== id);
+        saveHistoryToLocal();
+        renderHistoryTable();
+    }
+    
+    function clearAllHistory() {
+        if (historyRecords.length === 0) return;
+        if (confirm("⚠️ 确定要清空全部计算记录吗？")) {
+            historyRecords = [];
+            saveHistoryToLocal();
+            renderHistoryTable();
+        }
+    }
+    
+    function saveHistoryToLocal() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(historyRecords));
+    }
+    
+    function loadHistoryFromLocal() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            try {
+                historyRecords = JSON.parse(stored);
+                historyRecords = historyRecords.map(rec => {
+                    if (!rec.id) rec.id = Date.now() + Math.random() * 10000;
+                    return rec;
+                });
+            } catch(e) { 
+                historyRecords = []; 
+            }
+        }
+        
+        if (historyRecords.length === 0) {
+            const exampleParams = { 
+                price: 120, 
+                variableCost: 45, 
+                fixedCost: 2500, 
+                otherFixedCost: 0, 
+                quantity: 80 
+            };
+            const exampleMetrics = calculateMetrics(exampleParams);
+            const exampleRecord = {
+                id: Date.now() - 100000,
+                timestamp: new Date().toLocaleString('zh-CN', {hour12: false}),
+                params: exampleParams,
+                metrics: {
+                    totalRevenue: exampleMetrics.totalRevenue,
+                    totalCost: exampleMetrics.totalCost,
+                    profit: exampleMetrics.profit,
+                    grossMargin: exampleMetrics.grossMargin,
+                    netProfitMargin: exampleMetrics.netProfitMargin,
+                    bepDisplay: exampleMetrics.bepDisplay,
+                    contributionMargin: exampleMetrics.contributionMarginPerUnit
+                }
+            };
+            historyRecords = [exampleRecord];
+            saveHistoryToLocal();
+        }
+        renderHistoryTable();
+    }
+    
+    function renderHistoryTable() {
+        if (!historyContainer) return;
+        if (historyRecords.length === 0) {
+            historyContainer.innerHTML = `<div class="empty-history">📭 暂无计算记录，点击「计算并保存记录」开始追溯</div>`;
+            return;
+        }
+        
+        const tableHtml = `
+            <table class="record-table">
+                <thead>
+                    <tr><th>⏱️ 日期时间</th><th>售价</th><th>变动成本</th><th>固定成本</th><th>其他固定</th><th>销量</th><th>总收入</th><th>总成本</th><th>利润</th><th>毛利率</th><th>净利率</th><th>盈亏平衡</th><th></th>
+                </thead>
+                <tbody>
+                    ${historyRecords.map(rec => {
+                        const p = rec.params;
+                        const m = rec.metrics;
+                        const profitClass = m.profit >= 0 ? 'positive' : 'negative';
+                        return `
+                            <tr>
+                                <td class="timestamp-col">${rec.timestamp}</td>
+                                <td>¥${p.price.toFixed(2)}</td>
+                                <td>¥${p.variableCost.toFixed(2)}</td>
+                                <td>¥${p.fixedCost.toFixed(2)}</td>
+                                <td>¥${p.otherFixedCost.toFixed(2)}</td>
+                                <td>${p.quantity}</td>
+                                <td>¥${m.totalRevenue.toFixed(2)}</td>
+                                <td>¥${m.totalCost.toFixed(2)}</td>
+                                <td class="${profitClass}">¥${m.profit.toFixed(2)}</td>
+                                <td>${m.grossMargin.toFixed(2)}%</td>
+                                <td>${m.netProfitMargin.toFixed(2)}%</td>
+                                <td style="font-size:0.75rem;">${m.bepDisplay}</td>
+                                <td><button class="delete-btn" data-id="${rec.id}" title="删除">🗑️</button></td>
+                            </tr>
+                        `;
+                    }).join('')}
+                </tbody>
+            </table>
+        `;
+        historyContainer.innerHTML = tableHtml;
+        
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id = Number(btn.getAttribute('data-id'));
+                if (!isNaN(id)) deleteRecordById(id);
+            });
+        });
+    }
+    
+    function bindEvents() {
+        const inputs = [priceInput, variableCostInput, fixedCostInput, otherFixedCostInput, quantityInput];
+        inputs.forEach(inp => {
+            inp.addEventListener('input', () => updatePreviewMetrics());
+        });
+        
+        calcBtn.addEventListener('click', saveCurrentRecord);
+        clearAllBtn.addEventListener('click', clearAllHistory);
+    }
+    
+    function init() {
+        loadHistoryFromLocal();
+        updatePreviewMetrics();
+        bindEvents();
+    }
+    
+    init();
+</script>
+</body>
+</html>
